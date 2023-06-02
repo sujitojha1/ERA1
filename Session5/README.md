@@ -27,6 +27,7 @@ The dataset used in this assignment is the MNIST dataset. This dataset consists 
 ### 🖼️ Sample Images
 
 The `getSampleImages` function in `utils.py` is used to display some sample images from the training data. This gives an idea of the kind of images the model is being trained on. The images are grayscale and show handwritten digits from 0 to 9.
+![Sample images](./sampleImages.png)
 
 ## 🧠 Understanding the Code
 
@@ -41,9 +42,11 @@ The code is broken down into different files for organization and readability:
 
 ## 📈 Training and Test Accuracy
 
-The model achieves a training accuracy of approximately 98% and a test accuracy of approximately 97%. These values indicate that the model performs well on both the training data and unseen test data.
+The model achieves a training accuracy of approximately **99.16%** and a test accuracy of approximately **99.33%**. These values indicate that the model performs well on both the training data and unseen test data.
 
 ## 📊 Plotting Loss and Accuracy
 
 The `getTrainingTestPlots` function in `model.py` is used to plot the training and test losses and accuracies. These plots provide a visual representation of how the model's performance changes over the course of training. The loss plots show how the model's error decreases over time, and the accuracy plots show how the model's performance improves.
+
+![Loss and accuracy](./training_test_loss_accuracy_plots.png)
 
