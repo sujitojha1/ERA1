@@ -25,6 +25,10 @@ class Net(nn.Module):
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
 
+def getModelSummary(model):
+
+    from torchsummary import summary
+    summary(model, input_size=(1, 28, 28))
 
 from tqdm import tqdm
 
