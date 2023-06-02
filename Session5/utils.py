@@ -29,3 +29,21 @@ def getDataLoader(batch_size = 512):
     train_loader = torch.utils.data.DataLoader(train_data, **kwargs)
     
     return train_loader, test_loader
+
+
+import matplotlib.pyplot as plt
+
+def getSampleImages(data_loader):
+    batch_data, batch_label = next(iter(train_loader)) 
+
+    fig = plt.figure()
+
+    for i in range(12):
+      plt.subplot(3,4,i+1)
+      plt.tight_layout()
+      plt.imshow(batch_data[i].squeeze(0), cmap='gray')
+      plt.title(batch_label[i].item())
+      plt.xticks([])
+      plt.yticks([])
+        
+    return fig
