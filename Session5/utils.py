@@ -15,5 +15,5 @@ train_transforms = transforms.Compose([
 # Test data transformations
 test_transforms = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.1407,), (0.4081,))
+    transforms.Normalize((0.1307,), (0.3081,))
     ])
