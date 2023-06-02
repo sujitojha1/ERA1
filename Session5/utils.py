@@ -17,3 +17,15 @@ test_transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
     ])
+
+def getDataLoader(batch_size = 512):
+   
+    train_data = datasets.MNIST('../data', train=True, download=True, transform=train_transforms)
+    test_data = datasets.MNIST('../data', train=True, download=True, transform=train_transforms)
+
+    kwargs = {'batch_size': batch_size, 'shuffle': False, 'num_workers': 2, 'pin_memory': True}
+
+    test_loader = torch.utils.data.DataLoader(train_data, **kwargs)
+    train_loader = torch.utils.data.DataLoader(train_data, **kwargs)
+    
+    return train_loader, test_loader
