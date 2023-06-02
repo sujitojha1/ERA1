@@ -35,7 +35,7 @@ from tqdm import tqdm
 def GetCorrectPredCount(pPrediction, pLabels):
   return pPrediction.argmax(dim=1).eq(pLabels).sum().item()
 
-def train(model, device, train_loader, optimizer, criterion):
+def train(model, device, train_loader, optimizer, criterion, train_losses, train_acc):
   model.train()
   pbar = tqdm(train_loader)
 
@@ -66,7 +66,7 @@ def train(model, device, train_loader, optimizer, criterion):
   train_acc.append(100*correct/processed)
   train_losses.append(train_loss/len(train_loader))
 
-def test(model, device, test_loader, criterion):
+def test(model, device, test_loader, criterion, test_losses, test_acc):
     model.eval()
 
     test_loss = 0
@@ -102,8 +102,8 @@ def training(model, device, num_epochs, train_loader, test_loader, optimizer, cr
 
     for epoch in range(1, num_epochs+1):
         print(f'Epoch {epoch}')
-        train(model, device, train_loader, optimizer, criterion)
-        test(model, device, test_loader, criterion)
+        train(model, device, train_loader, optimizer, criterion, train_losses, train_acc)
+        test(model, device, test_loader, criterion, test_losses, test_acc)
         scheduler.step()
 
     return train_losses, test_losses, train_acc, test_acc, test_incorrect_pred
