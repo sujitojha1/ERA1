@@ -26,15 +26,6 @@ class Net(nn.Module):
         return F.log_softmax(x, dim=1)
 
 
-# Data to plot accuracy and loss graphs
-train_losses = []
-test_losses = []
-train_acc = []
-test_acc = []
-
-test_incorrect_pred = {'images': [], 'ground_truths': [], 'predicted_vals': []}
-
-
 from tqdm import tqdm
 
 def GetCorrectPredCount(pPrediction, pLabels):
@@ -94,4 +85,21 @@ def test(model, device, test_loader, criterion):
     print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
         test_loss, correct, len(test_loader.dataset),
         100. * correct / len(test_loader.dataset)))
-     
+
+def training(model, device, num_epochs, train_loader, test_loader, optimizer, criterion):
+
+    # Data to plot accuracy and loss graphs
+    train_losses = []
+    test_losses = []
+    train_acc = []
+    test_acc = []
+
+    test_incorrect_pred = {'images': [], 'ground_truths': [], 'predicted_vals': []}
+
+    for epoch in range(1, num_epochs+1):
+        print(f'Epoch {epoch}')
+        train(model, device, train_loader, optimizer, criterion)
+        test(model, device, test_loader, criterion)
+        scheduler.step()
+
+    return train_losses, test_losses, train_acc, test_acc, test_incorrect_pred
