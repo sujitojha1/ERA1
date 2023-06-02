@@ -104,7 +104,7 @@ def training(model, device, num_epochs, train_loader, test_loader, optimizer, cr
         print(f'Epoch {epoch}')
         train(model, device, train_loader, optimizer, criterion, train_losses, train_acc)
         test(model, device, test_loader, criterion, test_losses, test_acc)
-        scheduler.step()
+        #scheduler.step()
 
     return train_losses, test_losses, train_acc, test_acc, test_incorrect_pred
 
