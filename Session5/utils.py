@@ -34,7 +34,7 @@ def getDataLoader(batch_size = 512):
 import matplotlib.pyplot as plt
 
 def getSampleImages(data_loader):
-    batch_data, batch_label = next(iter(train_loader)) 
+    batch_data, batch_label = next(iter(data_loader)) 
 
     fig = plt.figure()
 
