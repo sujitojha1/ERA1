@@ -1,4 +1,4 @@
-# TSAI - EVA8 Session 3 Assignment
+# ERA1 Session 6 Assignment
 
 ## Problem Statement
 
@@ -9,7 +9,7 @@
         4. Explain each major step  
         5. Show what happens to the error graph when you change the learning rate from [0.1, 0.2, 0.5, 0.8, 1.0, 2.0]   
         6. Upload all this to GitHub and then write   all the above as part 1 of your README.md file.  
-        7. Submit details to S3 - Assignment QnA.  
+        7. Submit details to S6 - Assignment QnA.  
 2. PART 2 [250]: We have considered many points in our last 4 lectures. Some of these we have covered directly and some indirectly. They are:  
         1. How many layers,  
         2. MaxPooling,  
@@ -41,11 +41,11 @@
             5. Have used BN, Dropout, a Fully connected layer, have used GAP.   
             6. To learn how to add different things we covered in this session, you can refer to this code: https://www.kaggle.com/enwei26/mnist-digits-pytorch-cnn-99 DONT COPY ARCHITECTURE, JUST LEARN HOW TO INTEGRATE THINGS LIKE DROPOUT, BATCHNORM, ETC. 
 4. This is a slightly time-consuming assignment, please make sure you start early. You are going to spend a lot of effort into running the programs multiple times
-5. Once you are done, submit your results in S3-Assignment-Solution  
-6. You must upload your assignment to a public GitHub Repository. Create a folder called S3 in it, and add your iPynb code to it. THE LOGS MUST BE VISIBLE. Before adding the link to the submission make sure you have opened the file in an "incognito" window.  
+5. Once you are done, submit your results in S6-Assignment-Solution  
+6. You must upload your assignment to a public GitHub Repository. Create a folder called S6 in it, and add your iPynb code to it. THE LOGS MUST BE VISIBLE. Before adding the link to the submission make sure you have opened the file in an "incognito" window.  
 7. If you misrepresent your answers, you will be awarded -100% of the score.  
 8. If you submit Colab Link instead of notebook uploaded on GitHub or redirect the GitHub page to colab, you will be awarded -50% 
-9. Submit details to S3 - Assignment QnA.  
+9. Submit details to S6 - Assignment QnA.  
 
 # Part 1, Solution
 ## Q 1. Rewrite the whole excel sheet showing backpropagation. Explain each major step.
@@ -74,7 +74,7 @@ Note
 
 # Part 2, Solution
 
-Notebook: [link](EVA8_Session_3.ipynb)
+Notebook: [link](ERA1_Session_6.ipynb)
 
 Log of the loss function,  
 ![loss](./images/mnist_Loss.png)
