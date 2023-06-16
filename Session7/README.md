@@ -32,7 +32,7 @@
 - Model with 6K parameters is able to reach till 99.25% accuracy in 15 epochs.
 - Model is not overfitting as training and test accuracies are closeby.
 
-## Solution, Step 2 [Notebook](https://github.com/sujitojha1/EVA8/blob/main/Session4/EVA8_S4_step2.ipynb)
+## Solution, Step 2 [Notebook](./ERA1_S7_step2.ipynb)
 
 ### Target   
 - Add image augmentation w random rotation and random affine to improve the model performance.
@@ -46,7 +46,7 @@
 - Model with 6K parameters is able to reach till 99.19% accuracy in 15 epochs.
 - Image augmentation doesn't show much improvement. It may be because of presense of dropout which effectively does similar function.
 
-## Solution, Step 3 [Notebook](https://github.com/sujitojha1/EVA8/blob/main/Session4/EVA8_S4_step3.ipynb)
+## Solution, Step 3 [Notebook](./ERA1_S7_step3.ipynb)
 
 ### Target   
 - Study effect of including StepLR rate scheduler.
@@ -56,10 +56,10 @@
 ### Results
 - Parameters: 7,416
 - Best Train Accuracy 99.03%  
-- Best Test Accuracy 99.40%  
+- Best Test Accuracy 99.38%  
 
 ### Analysis
-- Model with 7.4K parameters is cross 99.40% accuracy in 15 epochs.
+- Model with 7.4K parameters is cross 99.38% accuracy in 15 epochs.
 - Model meets all the requirement of model size, accuracy and epoch.
 - Increasing model capacity and LR rate scheduler helps meet the accuracy in 15 epochs
 
