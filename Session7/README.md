@@ -1,4 +1,4 @@
-# ERA1 Session 6 Assignment
+# ERA1 Session 7 Assignment
 
 ## Problem Statement
 
@@ -17,7 +17,7 @@
 9. When ready, attempt SESSION 7 -Assignment Solution  
 
 
-## Solution, Step 1 [Notebook](https://github.com/sujitojha1/EVA8/blob/main/Session4/EVA8_S4_step1.ipynb)
+## Solution, Step 1 [Notebook](./ERA1_S7_step1.ipynb)
 
 ### Target   
 - Create a Setup (dataset, data loader, train/test steps and log plots)  
@@ -25,8 +25,8 @@
 
 ### Results
 - Parameters: 6,038
-- Best Train Accuracy 98.84%  
-- Best Test Accuracy 99.25%  
+- Best Train Accuracy 98.79%  
+- Best Test Accuracy 99.02%  
 
 ### Analysis
 - Model with 6K parameters is able to reach till 99.25% accuracy in 15 epochs.
