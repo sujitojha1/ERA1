@@ -1,6 +1,14 @@
-# ERA1 Session 8 Assignment
+# ERA1 Session 8 Assignment 📚
 
-## Problem Statement
+## Table of Contents
+- [Problem Statement](#problem-statement)
+- [Introduction](#introduction)
+- [Data Augmentation](#data-augmentation)
+- [Notebook and Results](#notebook-and-results)
+- [Findings](#findings)
+- [Misclassified Images](#misclassified-images)
+
+## 🎯 Problem Statement
 Assignment is:  
   
 1. Change the dataset to CIFAR10  
@@ -24,7 +32,7 @@ Assignment is:
     4. your collection-of-misclassified-images 
 6. Upload your complete assignment on GitHub and share the link on LMS
 
-## Introduction
+## 📖 Introduction
 
 The goal of this assignment is to implement and evaluate the performance of a Convolutional Neural Network (CNN) with different normalization techniques on the CIFAR10 dataset. The network has a specific architecture (C1 C2 c3 P1 C3 C4 C5 c6 P2 C7 C8 C9 GAP c10 ) with the total parameter count kept under 50,000. "C" means 3x3 convoluion, "c" means 1x1 convolution, "P" means max pooling and "GAP" means global avaerag pooling. Network with skip connections.
 
@@ -32,13 +40,13 @@ Three versions of the network are created, each applying a different normalizati
 
 The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
 
-## Data augmentation 
+## 🎲 Data Augmentation 
 Augmentation is performed using the Albumentations library. Three techniques are applied in the training data loader: horizontal flipping, shiftScaleRotate, and coarseDropout. No dropout was included in the model as these data augmentation methods provide similar regularization effects.
 
 Sample images,  
 ![augmentation](./images/augmented_images.png)
 
-## Notebook and Results
+## 📓 Notebook and Results
 
 Below is a table summarizing the performance of each model. It provides links to the notebooks for each model, along with their respective training and test accuracies.
 
@@ -49,20 +57,21 @@ Below is a table summarizing the performance of each model. It provides links to
 | Batch Normalization | [BN Notebook](./ERA1_S8_CIFAR10_BatchNorm.ipynb) | 73.73 % | 77.55 % |
 
 
-## Findings
+## 📈 Findings
 Batch Normalization achieved the highest training and test accuracies. Layer Normalization also performed well, with slightly lower accuracies. Group Normalization, however, yielded the lowest accuracies among the three techniques.
 
-## Misclassified Images - BN
+## 📸 Misclassified Images
 
+### Batch Norm
 Few Samples of misclassified images,  
 ![misclassified](./images/missclassfied_image_bn.png)
 
-## Misclassified Images - GN
+### Group Norm
 
 Few Samples of misclassified images,  
 ![misclassified](./images/missclassfied_image_gn.png)
 
-## Misclassified Images - LN
+### Layer Norm
 
 Few Samples of misclassified images,  
 ![misclassified](./images/missclassfied_image_ln.png)
