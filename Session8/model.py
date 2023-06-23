@@ -30,7 +30,7 @@ class Net(nn.Module):
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,64),
-            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(in_channels=64, out_channels=16, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,16),
             #nn.Dropout(dropout_value)
