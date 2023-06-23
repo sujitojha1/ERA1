@@ -72,7 +72,7 @@ class Net(nn.Module):
 
         self.shortcut1 = nn.Sequential(
             nn.Conv2d(32, 192, kernel_size=1, stride=1, padding=0, bias=False),
-            normalizationFx(normalizationMethod,64),
+            normalizationFx(normalizationMethod,192),
         )
 
         self.linear = nn.Linear(132, 10)
