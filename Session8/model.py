@@ -19,7 +19,7 @@ class Net(nn.Module):
         self.convblock1 = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, stride=1, padding=1, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,8),
+            normalizationFx(normalizationMethod,32),
         ) 
 
         # CONVOLUTION BLOCK 1
