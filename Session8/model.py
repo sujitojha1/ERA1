@@ -76,7 +76,7 @@ class Net(nn.Module):
         )
         # OUTPUT BLOCK
         self.gap = nn.Sequential(
-            nn.AdaptiveAvgPool2d ()
+            nn.AvgPool2d(kernel_size=6)
         ) 
 
         self.linear = nn.Linear(768, 10)
