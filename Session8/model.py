@@ -76,10 +76,10 @@ class Net(nn.Module):
         )
         # OUTPUT BLOCK
         self.gap = nn.Sequential(
-            nn.AvgPool2d(kernel_size=6)
+            nn.AvgPool2d(kernel_size=8)
         ) 
 
-        self.linear = nn.Linear(768, 10)
+        self.linear = nn.Linear(192, 10)
         # self.dropout = nn.Dropout(dropout_value)
 
     def forward(self, x):
