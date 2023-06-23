@@ -24,13 +24,13 @@ class Net(nn.Module):
 
         # CONVOLUTION BLOCK 1
         self.convblock2 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=192, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=3, stride=1, padding=1, groups=192, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,32),
             #nn.Dropout(dropout_value)
@@ -41,45 +41,45 @@ class Net(nn.Module):
 
         # CONVOLUTION BLOCK 2
         self.convblock4 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=192, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=3, stride=1, padding=1, groups=192, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=3, stride=1, padding=1, groups=192, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,32),
+            normalizationFx(normalizationMethod,64),
             #nn.Dropout(dropout_value)
         ) 
 
         # CONVOLUTION BLOCK 3       
         self.convblock7 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=192, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=3, stride=1, padding=1, groups=192, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=3, stride=1, padding=1, groups=192, bias=False),
+            normalizationFx(normalizationMethod,64),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,192),
+            normalizationFx(normalizationMethod,64),
             #nn.Dropout(dropout_value)
         ) #o/p size = 64*8*8 RF = 26
 
         self.shortcut1 = nn.Sequential(
-            nn.Conv2d(32, 192, kernel_size=1, stride=1, padding=0, bias=False),
-            normalizationFx(normalizationMethod,192),
+            nn.Conv2d(32, 64, kernel_size=1, stride=1, padding=0, bias=False),
+            normalizationFx(normalizationMethod,64),
         )
         # OUTPUT BLOCK
         self.gap = nn.Sequential(
             nn.AvgPool2d(kernel_size=8)
         ) 
 
-        self.linear = nn.Linear(192, 10)
+        self.linear = nn.Linear(64, 10)
         # self.dropout = nn.Dropout(dropout_value)
 
     def forward(self, x):
