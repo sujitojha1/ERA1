@@ -12,7 +12,7 @@ def normalizationFx(method, out_channels):
         return nn.GroupNorm(group, out_channels)
     
 class Net(nn.Module):
-    def __init__(self):
+    def __init__(self, normalizationMethod='BN'):
         super(Net, self).__init__()
 
         # Input Block
