@@ -26,33 +26,43 @@ Assignment is:
 
 ## Introduction
 
-The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./EVA8_S6_CIFAR10.ipynb).
+The goal of this assignment is to implement and evaluate the performance of a Convolutional Neural Network (CNN) with different normalization techniques on the CIFAR10 dataset. The network has a specific architecture (C1 C2 c3 P1 C3 C4 C5 c6 P2 C7 C8 C9 GAP c10 ) with the total parameter count kept under 50,000. "C" means 3x3 convoluion, "c" means 1x1 convolution, "P" means max pooling and "GAP" means global avaerag pooling. Network with skip connections.
+
+Three versions of the network are created, each applying a different normalization technique: Group Normalization (GN), Layer Normalization (LN), and Batch Normalization (BN). Each model is trained for 20 epochs, and the goal is to achieve an accuracy of above 70% for each model.
 
 The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
-
-## Model Architecture
-
-The model for this project is based on the C1C2C3C40 architecture with several modifications. Instead of max pooling, the network consists of 3 convolutional layers with 3x3 filters and a stride of 2. The final layer utilizes global average pooling (GAP). One layer uses depthwise separable convolution, while another layer uses dilated convolution. The architecture leverages mobileNetV2, which combines expand, depthwise, and pointwise convolution with residual connections.
-Data Augmentation
 
 ## Data augmentation 
 Augmentation is performed using the Albumentations library. Three techniques are applied in the training data loader: horizontal flipping, shiftScaleRotate, and coarseDropout. No dropout was included in the model as these data augmentation methods provide similar regularization effects.
 
 Sample images,  
-![augmentation](./images/dataloader_preview.png)
+![augmentation](./images/augmented_images.png)
 
-## Results
+## Notebook and Results
 
-The model was trained for 25 epochs and achieved an accuracy of 84.64% on the test set. The total number of parameters in the model was under 200k. The training logs, as well as the output of torchsummary, are included in this notebook.
+Below is a table summarizing the performance of each model. It provides links to the notebooks for each model, along with their respective training and test accuracies.
 
-Trainling accuracy: 82.84 %
-Test accuracy: 84.64 %
+| Model | Notebook Link | Training Accuracy | Test Accuracy |
+|-------|---------------|-------------------|---------------|
+| Group Normalization | [GN Notebook](./ERA1_S8_CIFAR10_GroupNorm.ipynb) | 67.23 % | 70.37 % |
+| Layer Normalization | [LN Notebook](./ERA1_S8_CIFAR10_LayerNorm.ipynb) | 67.82 % | 71.41 % |
+| Batch Normalization | [BN Notebook](./ERA1_S8_CIFAR10_BatchNorm.ipynb) | 73.73 % | 77.55 % |
 
-## Classwise Accuracy
 
-![classwise_accuracy](./images/classwise_accuracy.png)
+## Findings
+Batch Normalization achieved the highest training and test accuracies. Layer Normalization also performed well, with slightly lower accuracies. Group Normalization, however, yielded the lowest accuracies among the three techniques.
 
-## Misclassified Images
+## Misclassified Images - BN
 
 Few Samples of misclassified images,  
-![misclassified](./images/misclassified_images.png)
+![misclassified](./images/missclassfied_image_bn.png)
+
+## Misclassified Images - GN
+
+Few Samples of misclassified images,  
+![misclassified](./images/missclassfied_image_gn.png)
+
+## Misclassified Images - LN
+
+Few Samples of misclassified images,  
+![misclassified](./images/missclassfied_image_ln.png)
