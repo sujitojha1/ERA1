@@ -74,6 +74,10 @@ class Net(nn.Module):
             nn.Conv2d(32, 192, kernel_size=1, stride=1, padding=0, bias=False),
             normalizationFx(normalizationMethod,192),
         )
+        # OUTPUT BLOCK
+        self.gap = nn.Sequential(
+            nn.AvgPool2d(kernel_size=4)
+        ) 
 
         self.linear = nn.Linear(132, 10)
         # self.dropout = nn.Dropout(dropout_value)
