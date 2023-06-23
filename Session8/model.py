@@ -58,7 +58,7 @@ class Net(nn.Module):
 
         self.shortcut1 = nn.Sequential(
             nn.Conv2d(16, 32, kernel_size=1, stride=1, padding=0, bias=False),
-            normalizationFx(normalizationMethod,128),
+            normalizationFx(normalizationMethod,32),
         )
 
         # CONVOLUTION BLOCK 3       
