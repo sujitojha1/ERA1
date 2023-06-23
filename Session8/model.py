@@ -17,14 +17,14 @@ class Net(nn.Module):
 
         # Input Block
         self.convblock1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,32),
+            normalizationFx(normalizationMethod,16),
         ) 
 
         # CONVOLUTION BLOCK 1
         self.convblock2 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,64),
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, groups=64, bias=False),
@@ -32,7 +32,7 @@ class Net(nn.Module):
             normalizationFx(normalizationMethod,64),
             nn.Conv2d(in_channels=64, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,32),
+            normalizationFx(normalizationMethod,16),
             #nn.Dropout(dropout_value)
         ) 
 
