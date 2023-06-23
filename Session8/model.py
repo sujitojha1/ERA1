@@ -50,15 +50,20 @@ class Net(nn.Module):
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1, groups=128, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,128),
-            nn.Conv2d(in_channels=128, out_channels=16, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(in_channels=128, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
-            normalizationFx(normalizationMethod,16),
+            normalizationFx(normalizationMethod,32),
             #nn.Dropout(dropout_value)
         ) 
 
+        self.shortcut1 = nn.Sequential(
+            nn.Conv2d(16, 32, kernel_size=1, stride=1, padding=0, bias=False),
+            normalizationFx(normalizationMethod,128),
+        )
+
         # CONVOLUTION BLOCK 3       
         self.convblock7 = nn.Sequential(
-            nn.Conv2d(in_channels=16, out_channels=128, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(in_channels=32, out_channels=128, kernel_size=1, stride=1, padding=0, bias=False),
             nn.ReLU(),
             normalizationFx(normalizationMethod,128),
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1, groups=128, bias=False),
@@ -70,8 +75,8 @@ class Net(nn.Module):
             #nn.Dropout(dropout_value)
         ) #o/p size = 64*8*8 RF = 26
 
-        self.shortcut1 = nn.Sequential(
-            nn.Conv2d(16, 128, kernel_size=1, stride=1, padding=0, bias=False),
+        self.shortcut2 = nn.Sequential(
+            nn.Conv2d(32, 128, kernel_size=1, stride=1, padding=0, bias=False),
             normalizationFx(normalizationMethod,128),
         )
         # OUTPUT BLOCK
@@ -91,7 +96,7 @@ class Net(nn.Module):
         x4 = self.transitionblock(x3)
 
         x5 = self.convblock4(x4)
-        x6 = x5 + x4
+        x6 = x5 + self.shortcut1(x4)
 
         x7 = self.transitionblock(x6)
 
