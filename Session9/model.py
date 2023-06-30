@@ -95,7 +95,7 @@ class Net(nn.Module):
 
         self.shortcut2 = nn.Sequential(
             nn.Conv2d(64, 132, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.BatchNorm2d(136),
+            nn.BatchNorm2d(132),
         )
 
         # OUTPUT BLOCK
