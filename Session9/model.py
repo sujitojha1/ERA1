@@ -103,7 +103,7 @@ class Net(nn.Module):
             nn.AvgPool2d(kernel_size=4)
         ) #o/p size = 512*1*1 RF = 92
 
-        self.linear = nn.Linear(138, 10)
+        self.linear = nn.Linear(136, 10)
         # self.dropout = nn.Dropout(dropout_value)
 
     def forward(self, x):
