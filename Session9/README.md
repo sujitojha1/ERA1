@@ -42,10 +42,10 @@ Sample images,
 
 ## Results
 
-The model was trained for 25 epochs and achieved an accuracy of 84.64% on the test set. The total number of parameters in the model was under 200k. The training logs, as well as the output of torchsummary, are included in this notebook.
+The model was trained for 30 epochs and achieved an accuracy of 84.64% on the test set. The total number of parameters in the model was under 200k. The training logs, as well as the output of torchsummary, are included in this notebook.
 
-Trainling accuracy: 82.84 %
-Test accuracy: 84.64 %
+Trainling accuracy: 81.246 %
+Test accuracy: 84.77 %
 
 ## Classwise Accuracy
 
