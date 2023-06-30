@@ -8,7 +8,7 @@ class Net(nn.Module):
 
         # Input Block
         self.convblock1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=5, stride=1, padding=1, bias=False),
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=7, stride=1, padding=1, bias=False),
             nn.ReLU(),
             nn.BatchNorm2d(32),
         ) #o/p size=32*32*32 RF=3
