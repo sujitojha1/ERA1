@@ -1,6 +1,16 @@
-# ERA1 Session 9 Assignment
+# 🌐 ERA1 Session 9 Assignment 🌐
 
-## Problem Statement
+## 📌 Table of Contents
+
+1. [Problem Statement](#problem-statement)
+2. [Introduction](#introduction)
+3. [Model Architecture](#model-architecture)
+4. [Data Augmentation](#data-augmentation)
+5. [Results](#results)
+6. [Classwise Accuracy](#classwise-accuracy)
+7. [Misclassified Images](#misclassified-images)
+
+## 🎯 Problem Statement
 
 1. Write a new network that   
     1. has the architecture to C1C2C3C40 (No MaxPooling, but 3 convolutions, where the last one has a stride of 2 instead) (If you can figure out how to use Dilated kernels here instead of MP or strided convolution, then 200pts extra!)  
@@ -23,35 +33,36 @@
         4. copy paste your training log (you must be running validation/text after each Epoch [125]  
         5. Share the link for your README.md file. [200]  
 
-## Introduction
+## 📚 Introduction
 
 The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S9_CIFAR10.ipynb).
 
 The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
 
-## Model Architecture
+## 🏗 Model Architecture
 
 The model for this project is based on the C1C2C3C40 architecture with several modifications. Instead of max pooling, the network consists of 3 convolutional layers with 3x3 filters and a stride of 2. The final layer utilizes global average pooling (GAP). One layer uses depthwise separable convolution, while another layer uses dilated convolution. The architecture leverages mobileNetV2, which combines expand, depthwise, and pointwise convolution with residual connections.
 Data Augmentation
 
-## Data augmentation 
+## 🎨 Data augmentation 
 Augmentation is performed using the Albumentations library. Three techniques are applied in the training data loader: horizontal flipping, shiftScaleRotate, and coarseDropout. No dropout was included in the model as these data augmentation methods provide similar regularization effects.
 
 Sample images,  
 ![augmentation](./images/dataloader_preview.png)
 
-## Results
+## 📈 Results
 
 The model was trained for 30 epochs and achieved an accuracy of 84.77% on the test set. The total number of parameters in the model was under 200k. The training logs, as well as the output of torchsummary, are included in this notebook.
 
 Trainling accuracy: 81.246 %
 Test accuracy: 84.77 %
 
-## Classwise Accuracy
+## 📊 Classwise Accuracy
 
 ![classwise_accuracy](./images/classwise_accuracy.png)
 
-## Misclassified Images
+## ❌ Misclassified Images
 
 Few Samples of misclassified images,  
 ![misclassified](./images/misclassified_images.png)
+
