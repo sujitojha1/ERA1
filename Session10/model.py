@@ -87,4 +87,4 @@ class Net(nn.Module):
         out = out.view(out.size(0),-1)
         out = self.fc(out)
 
-        return F.Softmax(out, dim=1)
+        return F.softmax(out, dim=1)
