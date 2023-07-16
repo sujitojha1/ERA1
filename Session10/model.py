@@ -9,7 +9,7 @@ class X(nn.Module):
 
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
-            nn.MaxPool2d(kernel_size=3,stride=2),
+            #nn.MaxPool2d(kernel_size=3,stride=2),
             nn.BatchNorm2d(out_channels),
             nn.ReLU()
         )
