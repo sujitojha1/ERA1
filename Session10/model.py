@@ -14,7 +14,7 @@ class X(nn.Module):
             nn.ReLU()
         )
 
-    def forward(x):
+    def forward(self, x):
         return self.conv1(x)
 
 class ResBlock(nn.Module):
@@ -27,7 +27,7 @@ class ResBlock(nn.Module):
             nn.ReLU()
         )
 
-    def forward(x):
+    def forward(self, x):
         out = self.conv(x)
         out = self.conv(out)
         out = out + x
@@ -61,7 +61,7 @@ class Net(nn.Module):
         # FC
         self.fc = nn.Linear(2048,10)
 
-    def forward(x):
+    def forward(self, x):
         batch_size = x.shape[0]
 
         out = self.preplayer(x)
