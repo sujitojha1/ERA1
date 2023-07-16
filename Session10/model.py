@@ -8,7 +8,7 @@ class X(nn.Module):
         super(X, self).__init__()
 
         self.conv1 = nn.Sequential(
-            nn.Conv2D(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
             nn.MaxPool2d(kernel_size=3,stride=2),
             nn.BatchNorm2d(out_channels),
             nn.ReLU()
@@ -22,7 +22,7 @@ class ResBlock(nn.Module):
         super(ResBlock, self).__init__()
 
         self.conv = nn.Sequential(
-            nn.Conv2D(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
             nn.BatchNorm2d(out_channels),
             nn.ReLU()
         )
@@ -39,7 +39,7 @@ class Net(nn.Module):
 
         # Prep Layer
         self.preplayer = nn.Sequential(
-            nn.Conv2D(in_channels=3, out_channels=64, kernel_size=3,stride=1, padding=1,bias=False),
+            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3,stride=1, padding=1,bias=False),
             nn.BatchNorm2d(64),
             nn.ReLU()
         )
