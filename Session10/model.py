@@ -2,134 +2,89 @@ import torch.nn.functional as F
 import torch.nn as nn
 
 dropout_value = 0.1
+
+class X(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(X, self).__init__()
+
+        self.conv1 = nn.Sequential(
+            nn.Conv2D(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.MaxPool2d(kernel_size=3,stride=2),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU()
+        )
+
+    def forward(x):
+        return self.conv1(x)
+
+class ResBlock(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(ResBlock, self).__init__()
+
+        self.conv = nn.Sequential(
+            nn.Conv2D(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU()
+        )
+
+    def forward(x):
+        out = self.conv(x)
+        out = self.conv(out)
+        out = out + x
+        return out
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
 
-        # Input Block
-        self.convblock1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, stride=1, padding=1, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(32),
-        ) #o/p size=32*32*32 RF=3
-
-        # CONVOLUTION BLOCK 1
-        self.convblock2 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=6*32, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=6*32, kernel_size=3, stride=1, padding=1, groups=6*32, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(32),
-            #nn.Dropout(dropout_value)
-        ) #o/p size=16*32*32 RF=5
-
-        # TRANSITION BLOCK 1
-        self.convblock3 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, stride=2, padding=1, bias=False),
-            nn.BatchNorm2d(32),
-        ) #o/p size=16*16*16 RF=10
-
-        # CONVOLUTION BLOCK 2
-        self.convblock4 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=6*32, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=6*32, kernel_size=3, stride=1, padding=1, groups=6*32, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=32, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(32),
-            #nn.Dropout(dropout_value)
-        ) #o/p size =32*16*16 RF=12
-
-        # TRANSITION BLOCK 2
-        self.convblock6 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, stride=2, padding=1, bias=False),
-            nn.BatchNorm2d(32),
-        ) #o/p size=32*8*8 RF=24
-            
-        # CONVOLUTION BLOCK 3       
-        self.convblock7 = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=6*32, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=6*32, kernel_size=3, stride=1, padding=1, groups=6*32, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*32),
-            nn.Conv2d(in_channels=6*32, out_channels=64, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
+        # Prep Layer
+        self.preplayer = nn.Sequential(
+            nn.Conv2D(in_channels=3, out_channels=64, kernel_size=3,stride=1, padding=1,bias=False),
             nn.BatchNorm2d(64),
-            #nn.Dropout(dropout_value)
-        ) #o/p size = 64*8*8 RF = 26
-
-        self.shortcut1 = nn.Sequential(
-            nn.Conv2d(32, 64, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.BatchNorm2d(64),
+            nn.ReLU()
         )
 
-        # TRANSITION BLOCK 3
-        self.convblock8 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, dilation=2, padding=0, bias=False),
-            nn.BatchNorm2d(64),
-        ) # #o/p size=64*4*4 RF=52
+        # Layer 1
+        self.X1 = X(in_channels=64,out_channels=128)
+        self.R1 = ResBlock(in_channels=128,out_channels=128)
 
-            
-        # CONVOLUTION BLOCK 4       
-        self.convblock9 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=6*64, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*64),
-            nn.Conv2d(in_channels=6*64, out_channels=6*64, kernel_size=3, stride=1, padding=1, groups=6*64, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(6*64),
-            nn.Conv2d(in_channels=6*64, out_channels=132, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.ReLU(),
-            nn.BatchNorm2d(132),
-            #nn.Dropout(dropout_value)
-        ) # output_size = 4 #o/p size = 128*4*4 RF = 52
+        # Layer 2
+        self.X2 = X(in_channels=128,out_channels=256)
 
-        self.shortcut2 = nn.Sequential(
-            nn.Conv2d(64, 132, kernel_size=1, stride=1, padding=0, bias=False),
-            nn.BatchNorm2d(132),
-        )
+        # Layer 3
+        self.X3 = X(in_channels=256,out_channels=512)
+        self.R3 = ResBlock(in_channels=512,out_channels=512)
 
-        # OUTPUT BLOCK
-        self.gap = nn.Sequential(
-            nn.AvgPool2d(kernel_size=4)
-        ) #o/p size = 512*1*1 RF = 92
+        # Max Pool
+        self.maxpool = nn.MaxPool2d(kernel_size=4, stride=2)
 
-        self.linear = nn.Linear(132, 10)
-        # self.dropout = nn.Dropout(dropout_value)
+        # FC
+        self.fc = nn.Linear(2048,10)
 
-    def forward(self, x):
-        x1 = self.convblock1(x)
+    def forward(x):
+        batch_size = x.shape[0]
 
-        x2 = self.convblock2(x1)
-        x3 = x2 + x1
+        out = self.preplayer(x)
 
-        x4 = self.convblock3(x3)
+        # Layer 1
+        X = self.X1(out)
+        R1 = self.R1(X)
 
-        x5 = self.convblock4(x4)
-        x6 = x5 + x4
+        out = X + R1
 
-        x7 = self.convblock6(x6)
+        # Layer 2
+        out = self.X2(out)
 
-        x8 = self.convblock7(x7)
-        x9 = x8 + self.shortcut1(x7)
+        # Layer 3
+        X = self.X3(out)
+        R2 = self.R3(X)  
 
-        x10 = self.convblock8(x9)
+        out = X + R2
 
-        x11 = self.convblock9(x10)
-        x12 = x11 + self.shortcut2(x10)
+        out = self.maxpool(out)
 
+        # FC
+        out = out.view(batch_size,-1)
+        out = self.fc(out)
 
-        out = self.gap(x12)        
-        out = out.view(out.size(0), -1)
-        out = self.linear(out)
-
-        return out
+        return F.Softmax(out, dim=1)
