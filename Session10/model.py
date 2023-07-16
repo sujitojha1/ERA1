@@ -42,11 +42,11 @@ class Net(nn.Module):
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3,stride=1, padding=1,bias=False),
             nn.BatchNorm2d(64),
             nn.ReLU()
-        )
+        ) ## 32x32
 
         # Layer 1
-        self.X1 = X(in_channels=64,out_channels=128)
-        self.R1 = ResBlock(in_channels=128,out_channels=128)
+        self.X1 = X(in_channels=64,out_channels=128) # 16x16
+        self.R1 = ResBlock(in_channels=128,out_channels=128) # 32x32
 
         # Layer 2
         self.X2 = X(in_channels=128,out_channels=256)
@@ -67,8 +67,11 @@ class Net(nn.Module):
         out = self.preplayer(x)
 
         # Layer 1
-        X = self.X1(out)
-        R1 = self.R1(X)
+        X = self.X1(out) ## 16x16
+        print(X.shape)
+        R1 = self.R1(X)  
+        print(R1.shape)
+
 
         out = X + R1
 
