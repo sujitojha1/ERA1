@@ -9,7 +9,7 @@ class X(nn.Module):
 
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
-            nn.MaxPool2d(kernel_size=3,stride=2),
+            nn.MaxPool2d(kernel_size=2,stride=2),
             nn.BatchNorm2d(out_channels),
             nn.ReLU()
         )
@@ -68,9 +68,7 @@ class Net(nn.Module):
 
         # Layer 1
         X = self.X1(out) ## 16x16
-        print(X.shape)
         R1 = self.R1(X)  
-        print(R1.shape)
 
 
         out = X + R1
