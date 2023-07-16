@@ -59,7 +59,7 @@ class Net(nn.Module):
         self.maxpool = nn.MaxPool2d(kernel_size=4, stride=2)
 
         # FC
-        self.fc = nn.Linear(2048,10)
+        self.fc = nn.Linear(2*115200,10)
 
     def forward(self, x):
         batch_size = x.shape[0]
@@ -84,7 +84,7 @@ class Net(nn.Module):
         out = self.maxpool(out)
 
         # FC
-        out = out.view(batch_size,-1)
+        out = out.view(out.size(0),-1)
         out = self.fc(out)
 
         return F.Softmax(out, dim=1)
