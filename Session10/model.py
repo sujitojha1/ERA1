@@ -59,7 +59,7 @@ class Net(nn.Module):
         self.maxpool = nn.MaxPool2d(kernel_size=4, stride=2)
 
         # FC
-        self.fc = nn.Linear(2*115200,10)
+        self.fc = nn.Linear(115200,10)
 
     def forward(self, x):
         batch_size = x.shape[0]
