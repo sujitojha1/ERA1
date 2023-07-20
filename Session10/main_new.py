@@ -78,7 +78,7 @@ class test:
                 loss = criterion(outputs, targets)
 
                 test_loss += loss.item()
-                predicted = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+                predicted = outputs.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
                 total += targets.size(0)
                 correct += predicted.eq(targets.view_as(predicted)).sum().item()
 
