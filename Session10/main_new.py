@@ -46,9 +46,9 @@ class train:
 
             train_loss += loss.item()
             
-            _, predicted = outputs.max(1)
+            predicted = y_pred.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             processed += targets.size(0)
-            correct += predicted.eq(targets).sum().item()
+            correct += predicted.eq(target.view_as(pred)).sum().item()
 
             pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
             self.train_acc.append(100*correct/processed)
@@ -78,9 +78,9 @@ class test:
                 loss = criterion(outputs, targets)
 
                 test_loss += loss.item()
-                _, predicted = outputs.max(1)
+                predicted = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
                 total += targets.size(0)
-                correct += predicted.eq(targets).sum().item()
+                correct += predicted.eq(target.view_as(pred)).sum().item()
 
         test_loss /= len(testloader.dataset)
         self.test_losses.append(test_loss)
