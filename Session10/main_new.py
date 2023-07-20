@@ -46,7 +46,7 @@ class train:
 
             train_loss += loss.item()
             
-            predicted = y_pred.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+            predicted = outputs.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             processed += targets.size(0)
             correct += predicted.eq(target.view_as(pred)).sum().item()
 
