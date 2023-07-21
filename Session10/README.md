@@ -51,28 +51,28 @@ The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 te
 
 ## 🏗 Model Architecture
 
-The model for this project is based on the C1C2C3C40 architecture with several modifications. Instead of max pooling, the network consists of 3 convolutional layers with 3x3 filters and a stride of 2. The final layer utilizes global average pooling (GAP). One layer uses depthwise separable convolution, while another layer uses dilated convolution. The architecture leverages mobileNetV2, which combines expand, depthwise, and pointwise convolution with residual connections.
+The custom ResNet model for CIFAR10 features a preprocessing layer, three primary layers, and a fully connected (FC) layer. The layers incorporate Convolutional layers, MaxPooling, Batch Normalization, ReLU activations, and Residual Blocks to handle feature extraction and to mitigate the issue of vanishing gradients. The model ends with a SoftMax function for class probability scores, leveraging the depth of the model and residual connections for efficient classification on the CIFAR10 dataset.
 
 
 ## 🎨 Data augmentation 
-Augmentation is performed using the Albumentations library. Three techniques are applied in the training data loader: horizontal flipping, shiftScaleRotate, and coarseDropout. No dropout was included in the model as these data augmentation methods provide similar regularization effects.
+The model uses data augmentation techniques to improve robustness and prevent overfitting by increasing data diversity. This includes RandomCrop (32, 32), applied after a 4-pixel padding, to enhance positional robustness by randomly cropping images. FlipLR is used for introducing orientation robustness by mirroring images along the vertical axis. Lastly, CutOut (8, 8) randomly masks parts of the image, promoting the model's ability to learn from various regions, thereby improving its robustness to occlusions.
 
 Sample images,  
 ![augmentation](./images/dataloader_preview.png)
 
 ## 📈 Results
 
-The model was trained for 30 epochs and achieved an accuracy of 84.77% on the test set. The total number of parameters in the model was under 200k. The training logs, as well as the output of torchsummary, are included in this notebook.
+The model was trained for 24 epochs and achieved an accuracy of 91.34% on the test set. 
 
-Trainling accuracy: 81.246 %
-Test accuracy: 84.77 %
+Trainling accuracy: 94.90 %
+Test accuracy: 91.34 %
 
 ## 📊 Classwise Accuracy
 
-![classwise_accuracy](./images/classwise_accuracy.png)
+![classwise_accuracy](./images/classwise_accuracies.png)
 
 ## ❌ Misclassified Images
 
 Few Samples of misclassified images,  
-![misclassified](./images/misclassified_images.png)
+![misclassified](./images/missclassified_images.png)
 
