@@ -9,8 +9,8 @@ class train:
         self.train_acc    = []
 
     # Training
-    def execute(self,net, device, trainloader, optimizer, criterion,epoch):
-
+    def execute(self,net, device, trainloader, optimizer, scheduler, criterion,epoch):
+        lrs = []
         #print('Epoch: %d' % epoch)
         net.train()
         train_loss = 0
@@ -40,6 +40,10 @@ class train:
             loss.backward()
             optimizer.step()
 
+            # appending the learning rate for every batch
+            lrs.append(optimizer.param_groups[0]['lr'])
+            scheduler.step()
+
             train_loss += loss.item()
             
             _, predicted = outputs.max(1)
@@ -48,6 +52,10 @@ class train:
 
             pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
             self.train_acc.append(100*correct/processed)
+    
+        import matplotlib.pyplot as plt
+        plt.plot(lrs)
+        #return lrs
 
 
 class test:

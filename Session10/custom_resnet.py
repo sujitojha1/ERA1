@@ -1,93 +1,91 @@
-from tqdm import tqdm
-import torch
+import torch.nn.functional as F
+import torch.nn as nn
 
-class train:
+dropout_value = 0.1
 
+class X(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(X, self).__init__()
+
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU()
+        )
+
+    def forward(self, x):
+        return self.conv1(x)
+
+class ResBlock(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(ResBlock, self).__init__()
+
+        self.conv = nn.Sequential(
+            nn.Conv2d(in_channels,out_channels,kernel_size=3,stride=1, padding=1,bias = False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU()
+        )
+
+    def forward(self, x):
+        out = self.conv(x)
+        out = self.conv(out)
+        out = out + x
+        return out
+
+class Net(nn.Module):
     def __init__(self):
+        super(Net, self).__init__()
 
-        self.train_losses = []
-        self.train_acc    = []
+        # Prep Layer
+        self.preplayer = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3,stride=1, padding=1,bias=False),
+            nn.BatchNorm2d(64),
+            nn.ReLU()
+        ) ## 32x32
 
-    # Training
-    def execute(self,net, device, trainloader, optimizer, scheduler, criterion,epoch):
-        lrs = []
-        #print('Epoch: %d' % epoch)
-        net.train()
-        train_loss = 0
-        correct = 0
-        #total = 0
-        processed = 0
-        pbar = tqdm(trainloader)
+        # Layer 1
+        self.X1 = X(in_channels=64,out_channels=128) # 16x16
+        self.R1 = ResBlock(in_channels=128,out_channels=128) # 32x32
 
-        for batch_idx, (inputs, targets) in enumerate(pbar):
-            # get samples
-            inputs, targets = inputs.to(device), targets.to(device)
+        # Layer 2
+        self.X2 = X(in_channels=128,out_channels=256)
 
-            # Init
-            optimizer.zero_grad()
+        # Layer 3
+        self.X3 = X(in_channels=256,out_channels=512)
+        self.R3 = ResBlock(in_channels=512,out_channels=512)
 
-            # In PyTorch, we need to set the gradients to zero before starting to do backpropragation because PyTorch accumulates the gradients on subsequent backward passes. 
-            # Because of this, when you start your training loop, ideally you should zero out the gradients so that you do the parameter update correctly.
+        # Max Pool
+        self.maxpool = nn.MaxPool2d(kernel_size=4, stride=1)
 
-            # Predict
-            outputs = net(inputs)
+        # FC
+        self.fc = nn.Linear(512,10)
 
-            # Calculate loss
-            loss = criterion(outputs, targets)
-            self.train_losses.append(loss)
+    def forward(self, x):
+        batch_size = x.shape[0]
 
-            # Backpropagation
-            loss.backward()
-            optimizer.step()
+        out = self.preplayer(x)
 
-            # appending the learning rate for every batch
-            lrs.append(optimizer.param_groups[0]['lr'])
-            scheduler.step()
-
-            train_loss += loss.item()
-            
-            _, predicted = outputs.max(1)
-            processed += targets.size(0)
-            correct += predicted.eq(targets).sum().item()
-
-            pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
-            self.train_acc.append(100*correct/processed)
-    
-        import matplotlib.pyplot as plt
-        plt.plot(lrs)
-        #return lrs
+        # Layer 1
+        X = self.X1(out) ## 16x16
+        R1 = self.R1(X)  
 
 
-class test:
+        out = X + R1
 
-    def __init__(self):
+        # Layer 2
+        out = self.X2(out)
 
-        self.test_losses = []
-        self.test_acc    = []
+        # Layer 3
+        X = self.X3(out)
+        R2 = self.R3(X)  
 
-    def execute(self, net, device, testloader, criterion):
+        out = X + R2
 
-        net.eval()
-        test_loss = 0
-        correct = 0
-        total = 0
-        with torch.no_grad():
-            for batch_idx, (inputs, targets) in enumerate(testloader):
-                inputs, targets = inputs.to(device), targets.to(device)
-                outputs = net(inputs)
-                loss = criterion(outputs, targets)
+        out = self.maxpool(out)
 
-                test_loss += loss.item()
-                _, predicted = outputs.max(1)
-                total += targets.size(0)
-                correct += predicted.eq(targets).sum().item()
+        # FC
+        out = out.view(out.size(0),-1)
+        out = self.fc(out)
 
-        test_loss /= len(testloader.dataset)
-        self.test_losses.append(test_loss)
-
-        print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
-            test_loss, correct, len(testloader.dataset),
-            100. * correct / len(testloader.dataset)))
-
-        # Save.
-        self.test_acc.append(100. * correct / len(testloader.dataset))
+        return F.softmax(out, dim=1)
