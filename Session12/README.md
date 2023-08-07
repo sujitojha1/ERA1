@@ -6,8 +6,10 @@
 2. [Introduction](#introduction)
 3. [Model Architecture](#model-architecture)
 4. [Data Augmentation](#data-augmentation)
-5. [Results](#results)
-6. [Misclassified Images](#misclassified-images)
+5. [PyTorch Lightning Implementation](#-pytorch-lightning-implementation)
+6. [Results](#results)
+7. [Misclassified Images](#misclassified-images)
+8. [Gradio App](#gradio-app)
 
 ## 🎯 Problem Statement
 
