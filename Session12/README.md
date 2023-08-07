@@ -2,14 +2,14 @@
 
 ## 📌 Table of Contents
 
-1. [Problem Statement](#problem-statement)
-2. [Introduction](#introduction)
-3. [Model Architecture](#model-architecture)
-4. [Data Augmentation](#data-augmentation)
+1. [Problem Statement](#-problem-statement)
+2. [Introduction](#-introduction)
+3. [Model Architecture](#-model-architecture)
+4. [Data Augmentation](#-data-augmentation)
 5. [PyTorch Lightning Implementation](#-pytorch-lightning-implementation)
-6. [Results](#results)
-7. [Misclassified Images](#misclassified-images)
-8. [Gradio App](#gradio-app)
+6. [Results](#-results)
+7. [Misclassified Images](#-misclassified-images)
+8. [Gradio App](#-gradio-app)
 
 ## 🎯 Problem Statement
 
