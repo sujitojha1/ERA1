@@ -7,8 +7,7 @@
 3. [Model Architecture](#model-architecture)
 4. [Data Augmentation](#data-augmentation)
 5. [Results](#results)
-6. [Classwise Accuracy](#classwise-accuracy)
-7. [Misclassified Images](#misclassified-images)
+6. [Misclassified Images](#misclassified-images)
 
 ## 🎯 Problem Statement
 
@@ -29,7 +28,7 @@
 
 ## 📚 Introduction
 
-The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S10_CIFAR10_Resnet.ipynb).
+The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S12_CIFAR10_Pytorch_lightning.ipynb).
 
 The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
 
@@ -46,17 +45,12 @@ Sample images,
 
 ## 📈 Results
 
-The model was trained for 24 epochs and achieved an accuracy of 91.34% on the test set. 
+The model was trained for 24 epochs and achieved an accuracy of 89.64% on the test set. 
 
-Trainling accuracy: 94.90 %
-Test accuracy: 91.34 %
+![loss_accuracy](./images/loss_accuracy_plots.png)
 
-## 📊 Classwise Accuracy
-
-![classwise_accuracy](./images/classwise_accuracies.png)
-
-## ❌ Misclassified Images
+## ❌ Misclassified Images with GradCAM
 
 Few Samples of misclassified images,  
-![misclassified](./images/missclassified_images.png)
+![misclassified](./images/miss_classified_images.png)
 
