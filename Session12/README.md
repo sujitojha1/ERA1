@@ -67,4 +67,4 @@ For this project, a Gradio interface has been set up to let users interact with 
 
 [Link](https://huggingface.co/spaces/sujitojha/CIFAR10_CustomResnet_GradCAM)
 
-![Alt text](image.png)
+![Gradio App](./images/gradio_app.png)
