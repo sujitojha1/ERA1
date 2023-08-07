@@ -40,8 +40,6 @@ The custom ResNet model for CIFAR10 features a preprocessing layer, three primar
 ## 🎨 Data augmentation 
 The model uses data augmentation techniques to improve robustness and prevent overfitting by increasing data diversity. This includes RandomCrop (32, 32), applied after a 4-pixel padding, to enhance positional robustness by randomly cropping images. FlipLR is used for introducing orientation robustness by mirroring images along the vertical axis. Lastly, CutOut (8, 8) randomly masks parts of the image, promoting the model's ability to learn from various regions, thereby improving its robustness to occlusions.
 
-Sample images,  
-![augmentation](./images/dataloader_preview.png)
 
 ## 📈 Results
 
