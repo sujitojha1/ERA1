@@ -28,7 +28,7 @@
 
 ## 📚 Introduction
 
-The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S12_CIFAR10_Pytorch_lightning.ipynb).
+The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch, PyTorch Lightning and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S12_CIFAR10_Pytorch_lightning.ipynb).
 
 The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
 
@@ -39,6 +39,15 @@ The custom ResNet model for CIFAR10 features a preprocessing layer, three primar
 
 ## 🎨 Data augmentation 
 The model uses data augmentation techniques to improve robustness and prevent overfitting by increasing data diversity. This includes RandomCrop (32, 32), applied after a 4-pixel padding, to enhance positional robustness by randomly cropping images. FlipLR is used for introducing orientation robustness by mirroring images along the vertical axis. Lastly, CutOut (8, 8) randomly masks parts of the image, promoting the model's ability to learn from various regions, thereby improving its robustness to occlusions.
+
+## ⚡ PyTorch Lightning Implementation
+
+PyTorch Lightning provides a high-level interface to the PyTorch framework, simplifying many complex tasks and enabling more structured and cleaner code. It abstracts away most of the boilerplate code required for training, validation, and testing, allowing researchers and developers to focus on the actual model logic.
+
+We wrapped our model using PyTorch Lightning module
+- Data loading using PyTorch Bolt and Transformation using Albumentation
+- Training, Validation and Test Steps
+- One Cycle Learning Rate with Adam optimizer
 
 
 ## 📈 Results
@@ -52,3 +61,10 @@ The model was trained for 24 epochs and achieved an accuracy of 89.64% on the te
 Few Samples of misclassified images,  
 ![misclassified](./images/miss_classified_images.png)
 
+## 🎧 Gradio App
+
+For this project, a Gradio interface has been set up to let users interact with the trained CIFAR10 model. Users can upload images, adjust GradCAM parameters, and view the model's predictions along with GradCAM visualizations and misclassified images.
+
+[Link](https://huggingface.co/spaces/sujitojha/CIFAR10_CustomResnet_GradCAM)
+
+![Alt text](image.png)
