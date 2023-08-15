@@ -12,7 +12,7 @@ class LitYOLOv3(LightningModule):
         self.model = YOLOv3(num_classes=config.NUM_CLASSES)
         self.scaled_anchors = (
             torch.tensor(config.ANCHORS)
-            * torch.tensor(config.S).unsqueeze(1).unsequeeze(1).repeat(1,3,2)
+            * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
         )
         self.save_hyperparameters()
 
