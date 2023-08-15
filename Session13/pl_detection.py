@@ -23,8 +23,8 @@ class LitYOLOv3(LightningModule):
     def training_step(self, batch, batch_id):
         x,y = batch
         y0, y1, y2 = (y[0].to(self.device), y[1].to(self.device), y[2].to(self.device))
-
-        out = self(x.to(self.device))
+        x.to(self.device)
+        out = self(x)
         loss = (
             loss_fn(out[0], y0, self.scaled_anchors[0])
             + loss_fn(out[1], y1, self.scaled_anchors[1])
