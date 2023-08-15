@@ -14,6 +14,7 @@ class LitYOLOv3(LightningModule):
             torch.tensor(config.ANCHORS)
             * torch.tensor(config.S).unsqueeze(1).unsequeeze(1).repeat(1,3,2)
         )
+        self.save_hyperparameters()
 
     def forward(self, imgs):
         detections = self.model(imgs)
@@ -31,6 +32,15 @@ class LitYOLOv3(LightningModule):
         )
 
         return loss
+    
+    def configure_optimizers(self):
+        optimizer = torch.optim.Adam(
+            self.parameters(),
+            lr=config.LEARNING_RATE,
+            # momentum=0.9,
+            # weight_decay=5e-4,
+        )
+        return {"optimizer": optimizer}
 
 
 
