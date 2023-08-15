@@ -16,10 +16,21 @@ class LitYOLOv3(LightningModule):
         )
 
     def forward(self, imgs):
-        detections = self(imgs)
+        detections = self.model(imgs)
         return detections
 
     def training_step(self, batch, batch_id):
+        x,y = batch
+        y0, y1, y2 = (y[0], y[1], y[2])
+
+        out = self(x)
+        loss = (
+            loss_fn(out[0], y0, self.scaled_anchors[0])
+            + loss_fn(out[1], y1, self.scaled_anchors[1])
+            + loss_fn(out[2], y2, self.scaled_anchors[2])
+        )
+
+        return loss
 
 
 
