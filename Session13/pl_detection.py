@@ -49,12 +49,12 @@ class LitYOLOv3(LightningModule):
             * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
         ).to(self.device)
 
-        plot_couple_examples(self.model, self.test_dataloader, 0.6, 0.5, scaled_anchors)
+        plot_couple_examples(self.model, self.test_dataloader(), 0.6, 0.5, scaled_anchors)
         #print("Best mAP = {:.3f}, best mAP50 = {:.3f}".format(self.ap50_95, self.ap50))
 
-        check_class_accuracy(self.model, self.test_dataloader, threshold=config.CONF_THRESHOLD)
+        check_class_accuracy(self.model, self.train_dataloader(), threshold=config.CONF_THRESHOLD)
         pred_boxes, true_boxes = get_evaluation_bboxes(
-            self.test_dataloader,
+            self.test_dataloader(),
             self.model,
             iou_threshold=config.NMS_IOU_THRESH,
             anchors=config.ANCHORS,
