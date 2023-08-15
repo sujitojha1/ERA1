@@ -24,6 +24,8 @@ class LitYOLOv3(LightningModule):
         x,y = batch
         y0, y1, y2 = (y[0], y[1], y[2])
 
+        print(self.device)
+
         out = self(x)
         loss = (
             loss_fn(out[0], y0, self.scaled_anchors[0])
