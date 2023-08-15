@@ -84,13 +84,13 @@ class LitYOLOv3(LightningModule):
         )
 
     def train_dataloader(self):
-        return self.train_dataloader
+        return self.train_dataloader()
 
     def val_dataloader(self):
-        return self.train_eval_loader
+        return self.train_eval_loader()
 
     def test_dataloader(self):
-        return self.test_loader
+        return self.test_loader()
 
 
 
