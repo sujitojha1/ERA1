@@ -13,7 +13,7 @@ class LitYOLOv3(LightningModule):
         self.scaled_anchors = (
             torch.tensor(config.ANCHORS)
             * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
-        )
+        ).to_device(self.device)
         self.save_hyperparameters()
 
     def forward(self, imgs):
