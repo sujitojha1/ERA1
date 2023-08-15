@@ -9,7 +9,7 @@ loss_fn = YoloLoss()
 class LitYOLOv3(LightningModule):
     def __init__(self):
         super().__init__()
-        self.model = YOLOv3(num_classess=config.NUM_CLASSES)
+        self.model = YOLOv3(num_classes=config.NUM_CLASSES)
         self.scaled_anchors = (
             torch.tensor(config.ANCHORS)
             * torch.tensor(config.S).unsqueeze(1).unsequeeze(1).repeat(1,3,2)
