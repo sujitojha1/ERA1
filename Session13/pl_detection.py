@@ -78,7 +78,7 @@ class LitYOLOv3(LightningModule):
         )
         return {"optimizer": optimizer}
     
-    def setup(self):
+    def setup(self, stage=None):
         self.train_loader, self.test_loader, self.train_eval_loader = get_loaders(
             train_csv_path=config.DATASET + "/train25exp.csv", test_csv_path=config.DATASET + "/test25exp.csv"
         )
