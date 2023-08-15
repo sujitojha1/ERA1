@@ -49,8 +49,25 @@ class LitYOLOv3(LightningModule):
             * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
         ).to(self.device)
 
-        plot_couple_examples(model, test_loader, 0.6, 0.5, scaled_anchors)
-        print("Best mAP = {:.3f}, best mAP50 = {:.3f}".format(self.ap50_95, self.ap50))
+        plot_couple_examples(self.model, self.test_dataloader, 0.6, 0.5, scaled_anchors)
+        #print("Best mAP = {:.3f}, best mAP50 = {:.3f}".format(self.ap50_95, self.ap50))
+
+        check_class_accuracy(self.model, self.test_dataloader, threshold=config.CONF_THRESHOLD)
+        pred_boxes, true_boxes = get_evaluation_bboxes(
+            self.test_dataloader,
+            self.model,
+            iou_threshold=config.NMS_IOU_THRESH,
+            anchors=config.ANCHORS,
+            threshold=config.CONF_THRESHOLD,
+        )
+        mapval = mean_average_precision(
+            pred_boxes,
+            true_boxes,
+            iou_threshold=config.MAP_IOU_THRESH,
+            box_format="midpoint",
+            num_classes=config.NUM_CLASSES,
+        )
+        print(f"MAP: {mapval.item()}")
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(
