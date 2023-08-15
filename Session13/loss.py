@@ -25,6 +25,9 @@ class YoloLoss(nn.Module):
         self.lambda_box = 10
 
     def forward(self, predictions, target, anchors):
+        print(predictions)
+        print(target)
+        print(anchors)
         # Check where obj and noobj (we ignore if target == -1)
         obj = target[..., 0] == 1  # in paper this is Iobj_i
         noobj = target[..., 0] == 0  # in paper this is Inoobj_i
