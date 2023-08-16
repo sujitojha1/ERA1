@@ -19,10 +19,7 @@ loss_fn = YoloLoss()
 
 
 class LitYOLOv3(LightningModule):
-    scaled_anchors = (
-        torch.tensor(config.ANCHORS)
-        * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
-    )
+
     def __init__(self):
         super().__init__()
         self.model = YOLOv3(num_classes=config.NUM_CLASSES)
@@ -35,7 +32,10 @@ class LitYOLOv3(LightningModule):
 
     def criterion(self, out, y):
         y0, y1, y2 = (y[0], y[1], y[2])
-        scaled_anchors = scaled_anchors.to(self.device)
+        scaled_anchors = (
+            torch.tensor(config.ANCHORS)
+            * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
+        ).to(self.device)
         loss = (
                     loss_fn(out[0], y0, scaled_anchors[0])
                     + loss_fn(out[1], y1, scaled_anchors[1])
@@ -53,7 +53,10 @@ class LitYOLOv3(LightningModule):
         return loss
 
     def on_train_end(self) -> None:
-        scaled_anchors = scaled_anchors.to(self.device)
+        scaled_anchors = (
+            torch.tensor(config.ANCHORS)
+            * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
+        ).to(self.device)
 
         plot_couple_examples(self.model, self.test_dataloader(), 0.6, 0.5, scaled_anchors)
         #print("Best mAP = {:.3f}, best mAP50 = {:.3f}".format(self.ap50_95, self.ap50))
@@ -97,8 +100,3 @@ class LitYOLOv3(LightningModule):
 
     def test_dataloader(self):
         return self.test_loader
-
-
-
-
-
