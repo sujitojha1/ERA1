@@ -26,6 +26,7 @@ class LitYOLOv3(LightningModule):
         super().__init__()
         self.model = YOLOv3(num_classes=config.NUM_CLASSES)
         self.save_hyperparameters()
+        self.lr = config.LEARNING_RATE
 
     def forward(self, imgs):
         detections = self.model(imgs)
@@ -76,7 +77,7 @@ class LitYOLOv3(LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(
             self.parameters(),
-            lr=config.LEARNING_RATE,
+            lr=self.lr,
             # momentum=0.9,
             # weight_decay=5e-4,
         )
