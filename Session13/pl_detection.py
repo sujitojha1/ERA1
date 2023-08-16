@@ -16,12 +16,13 @@ from utils import (
 
 loss_fn = YoloLoss()
 
-scaled_anchors = (
-    torch.tensor(config.ANCHORS)
-    * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
-)
+
 
 class LitYOLOv3(LightningModule):
+    scaled_anchors = (
+        torch.tensor(config.ANCHORS)
+        * torch.tensor(config.S).unsqueeze(1).unsqueeze(1).repeat(1,3,2)
+    )
     def __init__(self):
         super().__init__()
         self.model = YOLOv3(num_classes=config.NUM_CLASSES)
