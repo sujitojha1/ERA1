@@ -13,6 +13,8 @@ from utils import (
     get_loaders,
     plot_couple_examples
 )
+from torch.optim.lr_scheduler import OneCycleLR
+
 
 loss_fn = YoloLoss()
 
@@ -85,7 +87,23 @@ class LitYOLOv3(LightningModule):
             # momentum=0.9,
             # weight_decay=5e-4,
         )
-        return {"optimizer": optimizer}
+        EPOCHS = config.NUM_EPOCHS * 2 // 5
+
+        scheduler_dict = {
+            "scheduler": OneCycleLR(
+                optimizer,
+                max_lr=1E-3,
+                steps_per_epoch=len(self.train_dataloader()),
+                epochs=EPOCHS,
+                pct_start=5/EPOCHS,
+                div_factor=100,
+                three_phase=False,
+                final_div_factor=100,
+                anneal_strategy='linear'
+            ),
+            "interval": "step",
+        }
+        return {"optimizer": optimizer, "lr_scheduler": scheduler_dict}
     
     def setup(self, stage=None):
         self.train_loader, self.test_loader, self.train_eval_loader = get_loaders(
