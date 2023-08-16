@@ -32,7 +32,7 @@ class LitYOLOv3(LightningModule):
         detections = self.model(imgs)
         return detections
 
-    def criterion(out, y):
+    def criterion(self, out, y):
         y0, y1, y2 = (y[0], y[1], y[2])
         scaled_anchors = scaled_anchors.to(self.device)
         loss = (
