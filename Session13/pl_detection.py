@@ -51,8 +51,8 @@ class LitYOLOv3(LightningModule):
 
         loss = self.criterion(out,y)
 
-        self.log("training loss", loss)
-        self.log("lr", self.trainer.optimizers[0].param_groups[0]['lr'])
+        self.log("training loss", loss, prog_bar=True)
+        self.log("lr", self.trainer.optimizers[0].param_groups[0]['lr'], prog_bar=True)
 
         return loss
 
@@ -62,7 +62,7 @@ class LitYOLOv3(LightningModule):
 
         loss = self.criterion(out,y)
 
-        self.log("validation loss", loss)
+        self.log("validation loss", loss, prog_bar=True)
 
         return loss
 
