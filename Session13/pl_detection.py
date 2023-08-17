@@ -56,19 +56,19 @@ class LitYOLOv3(LightningModule):
 
         return loss
 
-    def validation_step(self, batch, batch_id):
-        x,y = batch
-        out = self(x)
+    # def validation_step(self, batch, batch_id):
+    #     x,y = batch
+    #     out = self(x)
 
-        loss = self.criterion(out,y)
+    #     loss = self.criterion(out,y)
 
-        self.log("validation loss", loss, prog_bar=True)
+    #     self.log("validation loss", loss, prog_bar=True)
 
-        return loss
+    #     return loss
 
 
-    def on_validation_epoch_end(self):
-        check_class_accuracy(self.model, self.val_dataloader(), threshold=config.CONF_THRESHOLD)
+    def on_train_epoch_end(self):
+        check_class_accuracy(self.model, self.test_dataloader(), threshold=config.CONF_THRESHOLD)
 
     def on_train_end(self) -> None:
         scaled_anchors = (
