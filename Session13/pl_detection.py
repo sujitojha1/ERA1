@@ -26,7 +26,7 @@ class LitYOLOv3(LightningModule):
         super().__init__()
         self.model = YOLOv3(num_classes=config.NUM_CLASSES)
         self.save_hyperparameters()
-        # self.lr = config.LEARNING_RATE
+        self.lr = config.LEARNING_RATE
 
     def forward(self, imgs):
         detections = self.model(imgs)
