@@ -67,7 +67,7 @@ class LitYOLOv3(LightningModule):
         return loss
 
 
-    def validation_epoch_end(self):
+    def on_validation_epoch_end(self):
         check_class_accuracy(self.model, self.val_dataloader(), threshold=config.CONF_THRESHOLD)
 
     def on_train_end(self) -> None:
