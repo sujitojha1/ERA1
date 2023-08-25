@@ -75,6 +75,8 @@ The architecture of YOLOv3 is based on Darknet-53, a 53-layer network trained on
 ## 🎨 Data Augmentation
 This involves enhancing the diversity of training data using techniques like Mosaic Augmentation, ensuring the model is better generalized and robust against unseen data.
 
+![mosaic augmentation](./images/mosaic_augmentation.png)
+
 ## ⚡ PyTorch Lightning Implementation
 PyTorch Lightning is a light PyTorch wrapper that organizes PyTorch code, making ML research replicable and reducing boilerplate code. Here, we harness its simplicity and structure to streamline the training and evaluation process.
 
