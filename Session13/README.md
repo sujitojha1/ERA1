@@ -2,14 +2,14 @@
 
 ## 📌 Table of Contents
 
-1. [Problem Statement](#-problem-statement)
-2. [Introduction](#-introduction)
-3. [Model Architecture](#-model-architecture)
-4. [Data Augmentation](#-data-augmentation)
-5. [PyTorch Lightning Implementation](#-pytorch-lightning-implementation)
-6. [Results](#-results)
-7. [Misclassified Images](#-misclassified-images)
-8. [Gradio App](#-gradio-app)
+- [Problem Statement](#problem-statement)
+- [Introduction](#introduction)
+- [Model Architecture](#model-architecture)
+- [Data Augmentation](#data-augmentation)
+- [PyTorch Lightning Implementation](#pytorch-lightning-implementation)
+- [Results](#results)
+- [Misclassified Images](#misclassified-images)
+- [Gradio App](#gradio-app)
 
 ## 🎯 Problem Statement
 
@@ -59,43 +59,33 @@
 
 ## 📚 Introduction
 
-The goal of this assignment is to design a Convolutional Neural Network (CNN) using PyTorch, PyTorch Lightning and the Albumentation library to achieve an accuracy of 85% on the CIFAR10 dataset. The code for this assignment is provided in a Jupyter Notebook, which can be found [here](./ERA1_S12_CIFAR10_Pytorch_lightning.ipynb).
+Object detection is a pivotal aspect of computer vision, enabling machines to recognize and pinpoint multiple objects within an image or video feed. Over the years, a myriad of approaches have been introduced to tackle this challenge. Among these, the YOLO (You Only Look Once) series has garnered significant attention for its capability to detect objects in real-time without sacrificing accuracy. YOLOv3, a variant in this lineage, brings further enhancements to this approach, boasting improved precision and faster processing times.
 
-The CIFAR10 dataset consists of 60,000 32x32 color training images and 10,000 test images, labeled into 10 classes. The 10 classes represent airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 validation images.
+Central to our exploration is the PASCAL VOC dataset. Renowned within the computer vision community, PASCAL VOC provides a rich collection of images spread across diverse categories such as 'aeroplane', 'bird', 'car', and more. Utilizing YOLOv3 to perform object detection on this dataset not only offers a deep understanding of the model's capabilities but also highlights the intricacies and challenges associated with detecting a wide array of objects in varying scenarios.
 
-## 🏗 Model Architecture
+## 🏗 Model Architecture - YOLOv3
 
-The custom ResNet model for CIFAR10 features a preprocessing layer, three primary layers, and a fully connected (FC) layer. The layers incorporate Convolutional layers, MaxPooling, Batch Normalization, ReLU activations, and Residual Blocks to handle feature extraction and to mitigate the issue of vanishing gradients. The model ends with a SoftMax function for class probability scores, leveraging the depth of the model and residual connections for efficient classification on the CIFAR10 dataset.
+YOLOv3, standing for "You Only Look Once version 3," is an evolution in the YOLO series that offers real-time object detection with remarkable accuracy. Unlike its predecessors, YOLOv3 makes detection at three different scales and uses three sizes of anchor boxes for each detection scale, allowing for better detection of objects of various sizes.
+
+The architecture of YOLOv3 is based on Darknet-53, a 53-layer network trained on the ImageNet dataset. This foundational network is followed by a series of convolutional layers tailored for object detection. 
+
+![yolo architecture](./images/YoloV3_architecture.jpeg)
 
 
-## 🎨 Data augmentation 
-The model uses data augmentation techniques to improve robustness and prevent overfitting by increasing data diversity. This includes RandomCrop (32, 32), applied after a 4-pixel padding, to enhance positional robustness by randomly cropping images. FlipLR is used for introducing orientation robustness by mirroring images along the vertical axis. Lastly, CutOut (8, 8) randomly masks parts of the image, promoting the model's ability to learn from various regions, thereby improving its robustness to occlusions.
+## 🎨 Data Augmentation
+This involves enhancing the diversity of training data using techniques like Mosaic Augmentation, ensuring the model is better generalized and robust against unseen data.
 
 ## ⚡ PyTorch Lightning Implementation
-
-PyTorch Lightning provides a high-level interface to the PyTorch framework, simplifying many complex tasks and enabling more structured and cleaner code. It abstracts away most of the boilerplate code required for training, validation, and testing, allowing researchers and developers to focus on the actual model logic.
-
-We wrapped our model using PyTorch Lightning module
-- Data loading using PyTorch Bolt and Transformation using Albumentation
-- Training, Validation and Test Steps
-- One Cycle Learning Rate with Adam optimizer
-
+PyTorch Lightning is a light PyTorch wrapper that organizes PyTorch code, making ML research replicable and reducing boilerplate code. Here, we harness its simplicity and structure to streamline the training and evaluation process.
 
 ## 📈 Results
-
-The model was trained for 24 epochs and achieved an accuracy of 89.64% on the test set. 
-
-![loss_accuracy](./images/loss_accuracy_plots.png)
+After rigorous training, the model showcased exemplary performance by achieving [desired metrics]. A deeper dive into the results reveals the model's proficiency in [specific aspects].
 
 ## ❌ Misclassified Images with GradCAM
-
-Few Samples of misclassified images,  
-![misclassified](./images/miss_classified_images.png)
+Showcasing instances where the model predictions were off-mark. The GradCAM visualizations provide an understanding of where the model is focusing on these incorrect predictions.
 
 ## 🎧 Gradio App
+A user-friendly interface constructed using Gradio. This app enables users to upload custom images, view model predictions, and delve deeper into model decisions using GradCAM visualizations.
 
-For this project, a Gradio interface has been set up to let users interact with the trained CIFAR10 model. Users can upload images, adjust GradCAM parameters, and view the model's predictions along with GradCAM visualizations and misclassified images.
+[Link to Gradio App]
 
-[Link](https://huggingface.co/spaces/sujitojha/CIFAR10_CustomResnet_GradCAM)
-
-![Gradio App](./images/gradio_app.png)
