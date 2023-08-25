@@ -8,7 +8,6 @@
 - [Data Augmentation](#data-augmentation)
 - [PyTorch Lightning Implementation](#pytorch-lightning-implementation)
 - [Results](#results)
-- [Misclassified Images](#misclassified-images)
 - [Gradio App](#gradio-app)
 
 ## 🎯 Problem Statement
@@ -78,16 +77,21 @@ This involves enhancing the diversity of training data using techniques like Mos
 ![mosaic augmentation](./images/mosaic_augmentation.png)
 
 ## ⚡ PyTorch Lightning Implementation
-PyTorch Lightning is a light PyTorch wrapper that organizes PyTorch code, making ML research replicable and reducing boilerplate code. Here, we harness its simplicity and structure to streamline the training and evaluation process.
+
+We wrapped the YOLOv3 model using PyTorch Lightning, streamlining the training with a custom loss function, One Cycle Learning Rate policy, and float16 mixed-precision training for enhanced performance and efficiency.
+
 
 ## 📈 Results
-After rigorous training, the model showcased exemplary performance by achieving [desired metrics]. A deeper dive into the results reveals the model's proficiency in [specific aspects].
 
-## ❌ Misclassified Images with GradCAM
-Showcasing instances where the model predictions were off-mark. The GradCAM visualizations provide an understanding of where the model is focusing on these incorrect predictions.
+- Class accuracy is: 87.600876%
+- No obj accuracy is: 98.140427%
+- Obj accuracy is: 80.607513%
+
+[notebook](./ERA1_S13_YOLOv3_Pytorch_lightning.ipynb)
+
 
 ## 🎧 Gradio App
-A user-friendly interface constructed using Gradio. This app enables users to upload custom images, view model predictions, and delve deeper into model decisions using GradCAM visualizations.
+A user-friendly interface constructed using Gradio. This app enables users to upload custom images and view model predictions.
 
-[Link to Gradio App]
+[Link to Gradio App](https://huggingface.co/spaces/sujitojha/Object_Detection_YOLOv3)
 
