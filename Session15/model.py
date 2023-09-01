@@ -86,3 +86,39 @@ def ResidualConnection(nn.Module):
 
     def forward(self, x, sublayer):
         return x + self.dropout(sublayer(self.norm(x)))
+    
+
+class MultiHeadAttentionBlock(nn.Module):
+
+    def __init__(self, d_model:int, h:int, dropout: float) -> None:
+
+        super().__init__()
+        self.d_model = d_model
+        self.h = h # number of heads
+
+        # make sure d_model is divisible by h
+        assert d_model % h ==, "d_model is not divisible by h"
+    
+        self.d_k = d_model // h # dimension of vector seen by each head
+        self.w_q = nn.Linear(d_model, d_model, bias=False) # Wq
+        self.w_k = nn.Linear(d_model, d_model, bias=False) # Wk
+        self.w_v = nn.Linear(d_model, d_model, bias=False) # Wv
+        self.w_o = nn.Linear(d_model, d_model, bias=False) # Wo
+        self.dropout = nn.Dropout(dropout)
+
+    @staticmethod
+    def attention(query, key, value, mask, dropout: nn.Dropout):
+        d_k = query.shape[-1]
+        # (batch, h, seq_len, d_k) --> (batch, h, seq_len, seq_len)
+        attention_scores = (query @ key.transpose(-2,-1)) / math.sqrt(d_k)
+        if mask is not None:
+            # Write a very low value (indicating -inf) to the positions where mask == 0
+            attention_scores.masked_fill_(mask ==0, -1e9)
+
+        attention_scores = attention_scores.softmax(dim=-1)
+        if dropout is not None:
+            attention_scores = dropout(attention_scores)
+
+        # (batch, h, seq_len, seq_len) --> (batch, h , seq_len, d_k)
+        # return attention score which can be used for visualization
+        return (attention_scores @ value), attention_scores
