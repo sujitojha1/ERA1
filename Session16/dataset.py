@@ -8,7 +8,12 @@ class BilingualDataset(Dataset):
         super().__init__()
         self.seq_len = seq_len
 
-        self.ds = ds
+        # First, filter out text pairs where the length exceeds 160
+        ds = [item for item in ds if len(item['translation'][src_lang]) <= 150 and len(item['translation'][tgt_lang]) <= 160]
+
+        # Then filter out French sentences where len(french_sentence) > len(english_sentence) + 10
+        self.ds = [item for item in ds if len(item['translation'][tgt_lang]) <= len(item['translation'][src_lang]) + 10]
+        
         self.tokenizer_src = tokenizer_src
         self.tokenizer_tgt = tokenizer_tgt
         self.src_lang = src_lang
