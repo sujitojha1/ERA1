@@ -203,8 +203,8 @@ def collate_fn(batch):
         "encoder_mask": torch.vstack(encoder_mask),
         "decoder_mask": torch.vstack(decoder_mask),
         "label": torch.vstack(label), 
-        "src_text": torch.vstack(src_text),
-        "tgt_text": torch.vstack(tgt_text),
+        "src_text": src_text,
+        "tgt_text": tgt_text,
     }
 
 def get_model(config, vocab_src_len, vocab_tgt_len):
