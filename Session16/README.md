@@ -5,10 +5,9 @@
 - [Problem Statement](#problem-statement)
 - [Introduction](#introduction)
 - [Model Architecture](#model-architecture)
-- [Data Augmentation](#data-augmentation)
-- [PyTorch Lightning Implementation](#pytorch-lightning-implementation)
+- [Training Optimization](#data-augmentation)
 - [Results](#results)
-- [Gradio App](#gradio-app)
+
 
 ## 🎯 Problem Statement
 
@@ -18,45 +17,41 @@
 4. Train your own transformer (E-D) (do anything you want, use PyTorch, OCP, PS, AMP, etc), but get your loss under 1.8
 5. Enjoy! 
 
-## 📚 Introduction
+## 📝 Introduction
 
-Object detection is a pivotal aspect of computer vision, enabling machines to recognize and pinpoint multiple objects within an image or video feed. Over the years, a myriad of approaches have been introduced to tackle this challenge. Among these, the YOLO (You Only Look Once) series has garnered significant attention for its capability to detect objects in real-time without sacrificing accuracy. YOLOv3, a variant in this lineage, brings further enhancements to this approach, boasting improved precision and faster processing times.
+Machine translation, the task of translating text from one language to another, has seen significant advancements with the introduction of deep learning models, particularly the transformer architecture. The transformer's unique structure, characterized by self-attention mechanisms, allows for parallel processing of sequences and offers a departure from the recurrent models traditionally used in sequence-to-sequence tasks.
 
-Central to our exploration is the PASCAL VOC dataset. Renowned within the computer vision community, PASCAL VOC provides a rich collection of images spread across diverse categories such as 'aeroplane', 'bird', 'car', and more. Utilizing YOLOv3 to perform object detection on this dataset not only offers a deep understanding of the model's capabilities but also highlights the intricacies and challenges associated with detecting a wide array of objects in varying scenarios.
+For this project, we focus on translating English to French. English and French, being closely related Indo-European languages, share a lot of linguistic features, yet present enough challenges in terms of grammar, vocabulary, and idiomatic usage to make the translation task non-trivial.
 
-## 🏗 Model Architecture - YOLOv3
+The transformer model we employ consists of an encoder and a decoder. The encoder processes the input English sentence and compresses this information into a context vector. The decoder then utilizes this context to produce the translated French sentence. Both encoder and decoder comprise several layers of multi-head attention and feed-forward networks, making the transformer a powerful model for our task.
 
-YOLOv3, standing for "You Only Look Once version 3," is an evolution in the YOLO series that offers real-time object detection with remarkable accuracy. Unlike its predecessors, YOLOv3 makes detection at three different scales and uses three sizes of anchor boxes for each detection scale, allowing for better detection of objects of various sizes.
+## 📐 Model Architecture
 
-The architecture of YOLOv3 is based on Darknet-53, a 53-layer network trained on the ImageNet dataset. This foundational network is followed by a series of convolutional layers tailored for object detection. 
+The transformer model consists of N stacked Encoder-Decoder blocks. Each block features multi-head attention mechanisms, Our transformer comprises 6 (N) Encoder-Decoder blocks. Tokens are embedded into 512-dimensional vectors (d_model). Each block utilizes multi-head attention with 8 (h) heads, followed by feed-forward networks of size 128 (d_ff). The model incorporates positional encodings for sequence context and projects the decoder's output to the target vocabulary for translation.
 
-![yolo architecture](./images/YoloV3_architecture.jpeg)
+*** Model Dimensions: ***. 
+- Embedding Dimension (d_model): This determines the size of the embedding vectors. A common choice is 512.  
+- Feed-Forward Dimension (d_ff): Determines the size of the internal layers in the feed-forward networks present in both the encoder and decoder blocks.  
+- Number of Attention Heads (h): Influences how many different attention patterns the model can learn.  
 
+## 🔧 Training Optimization
 
-## 🎨 Data Augmentation
-This involves enhancing the diversity of training data using techniques like Mosaic Augmentation, ensuring the model is better generalized and robust against unseen data.
+To enhance the model's efficiency and performance:
 
-![mosaic augmentation](./images/mosaic_augmentation.png)
+- **Parameter Sharing**: The weights between the source and target embeddings are shared. This reduces the number of parameters and aligns the vector spaces, benefiting especially in tasks with closely related languages like English and French.
 
-## ⚡ PyTorch Lightning Implementation
+- **AMP (Automatic Mixed Precision)**: It speeds up training by leveraging both FP16 and FP32 data types, ensuring minimal loss in model accuracy.
 
-We wrapped the YOLOv3 model using PyTorch Lightning, streamlining the training with a custom loss function, One Cycle Learning Rate policy, and float16 mixed-precision training for enhanced performance and efficiency.
+- **Dynamic Padding**: Sequences in each batch are padded dynamically to the length of the longest sequence in that batch, reducing computational overhead.
+
+- **One Cycle Policy (OCP)**: A learning rate scheduling technique that enables faster convergence and potentially better model outcomes.
+
+These optimization techniques together ensure that the model trains faster, requires less memory, and achieves better performance.
 
 
 ## 📈 Results
 
-- Class accuracy is: 87.600876%
-- No obj accuracy is: 98.140427%
-- Obj accuracy is: 80.607513%
+The training loss achieved is 1.522. Detailed plots, training logs, and other related results can be viewed [here](./era1-session16-transformer-optimization-ipynb.ipynb). 
 
-[notebook](./ERA1_S13_YOLOv3_Pytorch_lightning.ipynb)
-
-
-## 🎧 Gradio App
-A user-friendly interface constructed using Gradio. This app enables users to upload custom images and view model predictions.
-
-[Link to Gradio App](https://huggingface.co/spaces/sujitojha/Object_Detection_YOLOv3)
-
-
-
+![Alt text](image.png)
 
