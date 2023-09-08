@@ -12,7 +12,7 @@ def get_config():
         "model_folder": "weights",
         "model_basename": "tmodel_",
         "preload": False,
-        "tokenizer_file": "tokenizer_{0}.json"
+        "tokenizer_file": "tokenizer_{0}.json",
         "experiment_name": "rus/tmodel_param_grad_zero",
     }
 
