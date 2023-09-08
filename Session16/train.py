@@ -226,6 +226,22 @@ def train_model(config):
 
     optimizer = torch.optim.Adam(model.parameters(), lr=config['lr'], eps=1e-9)
 
+    MAX_LR = 10**-3
+    STEPS_PER_EPOCH = len(train_dataloader)
+
+    # Scheduler
+    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,
+                                                    max_lr = MAX_LR,
+                                                    steps_per_epoch = STEPS_PER_EPOCH,
+                                                    epochs=config['num_epochs']),
+                                                    pct_start = 0.3,
+                                                    div_factor =100,
+                                                    three_phase = False,
+                                                    final_div_factor = 100,
+                                                    anneal_strategy="linear"
+                                                    )
+    
+
     # If the user specified a model to preload before training, load it
     initial_epoch = 0
     global_step = 0
@@ -273,6 +289,8 @@ def train_model(config):
             # Update the weights
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
+
+            scheduler.step()
 
             global_step += 1
 
