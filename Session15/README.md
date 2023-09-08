@@ -1,4 +1,4 @@
-# 🌐 ERA1 Session 15 Assignment 🌐
+# 🌐 ERA1 Session 16 Assignment 🌐
 
 ## 📌 Table of Contents
 
@@ -12,15 +12,11 @@
 
 ## 🎯 Problem Statement
 
-1. Rewrite the whole code covered in the class in Pytorch-Lightning (code copy will not be provided)  
-2. Train the model for 10 epochs  
-3. Achieve a loss of less than 4  
-
-The objective of this assignment:  
-
-- Understand the internal structure of transformers, so you can modify at your will
-- In the next session, we'll learn how to speed this code by 5 times, hence not asking you to train further
-- Loss should start from 9-10, and reduce to 4, showing that your code is working
+1. Pick the "en-fr" dataset from opus_books
+2. Remove all English sentences with more than 150 "tokens"
+3. Remove all french sentences where len(fench_sentences) > len(english_sentrnce) + 10
+4. Train your own transformer (E-D) (do anything you want, use PyTorch, OCP, PS, AMP, etc), but get your loss under 1.8
+5. Enjoy! 
 
 ## 📚 Introduction
 
