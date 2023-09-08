@@ -233,7 +233,7 @@ def train_model(config):
     scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,
                                                     max_lr = MAX_LR,
                                                     steps_per_epoch = STEPS_PER_EPOCH,
-                                                    epochs=config['num_epochs']),
+                                                    epochs=config['num_epochs'],
                                                     pct_start = 0.3,
                                                     div_factor =100,
                                                     three_phase = False,
