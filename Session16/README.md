@@ -51,7 +51,7 @@ These optimization techniques together ensure that the model trains faster, requ
 
 ## 📈 Results
 
-The training loss achieved is 1.522. Detailed plots, training logs, and other related results can be viewed [here](./era1-session16-transformer-optimization.ipynb). 
+The training loss achieved is 1.456. Detailed plots, training logs, and other related results can be viewed [here](./era1-session16-transformer-optimization.ipynb). 
 
 ![Alt text](image.png)
 
