@@ -11,7 +11,7 @@
 
 ## 🎯 Problem Statement
 
-First part of your assignment is to train your own UNet from scratch, you can use the dataset and strategy provided in this linkLinks to an external site.. However, you need to train it 4 times:
+First part of your assignment is to train your own UNet from scratch, you can use the dataset and strategy provided in this [link](https://medium.com/geekculture/u-net-implementation-from-scratch-using-tensorflow-b4342266e406). However, you need to train it 4 times:
 
 - MP+Tr+BCE
 - MP+Tr+Dice Loss
