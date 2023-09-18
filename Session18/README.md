@@ -11,9 +11,29 @@
 
 ## 🎯 Problem Statement
 
-1. Re-write the code in such a way where there is one transformer.py file that you can use to train all 3 model  
-2. Share the last few log details for all 3 models (BERT, GPT and ViT)  
-3. Share the link to a single repo where all 3 ipynb files can be found  
+First part of your assignment is to train your own UNet from scratch, you can use the dataset and strategy provided in this linkLinks to an external site.. However, you need to train it 4 times:
+
+- MP+Tr+BCE
+- MP+Tr+Dice Loss
+- StrConv+Tr+BCE
+- StrConv+Ups+Dice Loss
+
+and report your results.
+
+ 
+
+Design a variation of a VAE that:
+- takes in two inputs:
+    - an MNIST image, and
+    - its label (one hot encoded vector sent through an embedding layer)
+- Training as you would train a VAE
+- Now randomly send an MNIST image, but with a wrong label. Do this 25 times, and share what the VAE makes (25 images stacked in 1 image)!
+- Now do this for CIFAR10 and share 25 images (1 stacked image)!
+- Questions asked in the assignment are:
+    - Share the MNIST notebook link ON GITHUB [100]
+    - Share the CIFAR notebook link ON GITHUB [200]
+    - Upload the 25 MNIST outputs PROPERLY labeled [250]
+    - Upload the 25 CIFAR outputs PROPERLY labeled. [450]
 
 ## 📝 Introduction
 
