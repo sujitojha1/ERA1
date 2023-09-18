@@ -56,6 +56,7 @@ class ExpandingBlock(nn.Module):
         x = self.upsample(x)
 
         # concatenate the skip connection
+        print(x.shape,skip.shape)
         x = torch.cat((x, skip), dim=1)
 
         return x
