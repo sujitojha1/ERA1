@@ -42,7 +42,7 @@ class ExpandingBlock(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_channels)
         self.relu2 = nn.ReLU(inplace=True)
 
-        self.upsample = nn.ConvTranspose2d(out_channels, in_channels // 2, kernel_size=2, stride =2)
+        self.upsample = nn.ConvTranspose2d(out_channels, out_channels // 2, kernel_size=2, stride =2)
 
     def forward(self, x, skip):
         x = self.conv1(x)
@@ -68,7 +68,7 @@ class UNet(nn.Module):
         self.contract1 = ContractingBlock(in_channels, 64)
         self.contract2 = ContractingBlock(64, 128)
         self.contract3 = ContractingBlock(128, 256)
-        self.contract4 = ContractingBlock(256,512)
+        self.contract4 = ContractingBlock(256, 512)
 
         self.expand1 = ExpandingBlock(512, 256)
         self.expand2 = ExpandingBlock(256, 128)
@@ -82,7 +82,7 @@ class UNet(nn.Module):
         x, skip1 = self.contract1(x)
         x, skip2 = self.contract2(x)
         x, skip3 = self.contract3(x)
-        x, _ = self.contract4(x)
+        _, x = self.contract4(x)
 
         # Expanding path
         x = self.expand1(x, skip3)
