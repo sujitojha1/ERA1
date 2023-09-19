@@ -42,7 +42,7 @@ class ExpandingBlock(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_channels)
         self.relu2 = nn.ReLU(inplace=True)
 
-        self.upsample = nn.ConvTranspose2d(out_channels, out_channels // 2, kernel_size=2, stride =2)
+        self.upsample = nn.ConvTranspose2d(out_channels, in_channels // 2, kernel_size=2, stride =2)
 
     def forward(self, x, skip):
         x = self.conv1(x)
