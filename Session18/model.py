@@ -26,9 +26,9 @@ class ContractingBlock(nn.Module):
         x = self.relu2(x)
 
         skip = x # store the output for the skip connection
-        x = self.maxpool(x)
+        out = self.maxpool(x)
 
-        return x, skip
+        return out, skip
     
 class ExpandingBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
