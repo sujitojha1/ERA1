@@ -45,6 +45,13 @@ class ExpandingBlock(nn.Module):
         self.upsample = nn.ConvTranspose2d(out_channels, out_channels // 2, kernel_size=2, stride =2)
 
     def forward(self, x, skip):
+
+        x = self.upsample(x)
+
+        # concatenate the skip connection
+        # print(x.shape,skip.shape)
+        x = torch.cat((x, skip), dim=1)
+
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu1(x)
@@ -52,12 +59,6 @@ class ExpandingBlock(nn.Module):
         x = self.conv2(x)
         x = self.bn2(x)
         x = self.relu2(x)
-
-        x = self.upsample(x)
-
-        # concatenate the skip connection
-        print(x.shape,skip.shape)
-        x = torch.cat((x, skip), dim=1)
 
         return x
 
