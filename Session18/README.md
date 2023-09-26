@@ -11,14 +11,8 @@
 
 ## 🎯 Problem Statement
 
-First part of your assignment is to train your own UNet from scratch, you can use the dataset and strategy provided in this [link](https://medium.com/geekculture/u-net-implementation-from-scratch-using-tensorflow-b4342266e406). However, you need to train it 4 times:
-
-- MP+Tr+BCE
-- MP+Tr+Dice Loss
-- StrConv+Tr+BCE
-- StrConv+Ups+Dice Loss
-
-and report your results.
+- Make a CLIP or FastSAM application on gradio/spaces using open-source models. 
+- Share the link on the assignment page for the GitHub, and Spaces
 
  
 
