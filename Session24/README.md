@@ -43,3 +43,7 @@ Youtube Link: https://www.youtube.com/watch?v=rBd4Obkx4OE
 ## ⚡ Answer to questions  
 1. What happens when "boundary-signal" is weak when compared to the last reward?  
     Answer: When the boundary-signal is weak relative to the last reward, the car tends to get stuck at the boundary. It struggles to return to the road or to reach its intended goal.
+
+2. Temperature - Car was movement what fluctuating very rapidly
+
+3. Gamma - Car was moving straight and getting fixed into loops.
