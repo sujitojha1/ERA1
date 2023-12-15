@@ -28,37 +28,18 @@
 
 1. Create a new map of some other city for the code shared above  
 2. Add a DNN with 1 more FC layer.  
-Your map must have 3 targets A1>A2>A3 and your car/robot/object must target these alternatively. 
-Train your best model upload a video on YouTube and share the URL
-Answer these questions in S24-Assignment-Solution:
-What happens when "boundary-signal" is weak when compared to the last reward?
-What happens when Temperature is reduced? 
-What is the effect of reducing (gamma) 
-?
-Heavy marks for creativity, map quality, targets, and other things. If you use the same maps or have just replicated shared code, you will get 0 for this assignment and a -50% advance deduction for the next assignment. 
+3. Your map must have 3 targets A1>A2>A3 and your car/robot/object must target these alternatively.  
+4. Train your best model upload a video on YouTube and share the URL  
+5. Answer these questions in S24-Assignment-Solution:  
+    1. What happens when "boundary-signal" is weak when compared to the last reward?  
+    2. What happens when Temperature is reduced?  
+    3. What is the effect of reducing (gamma) ?  
+6. Heavy marks for creativity, map quality, targets, and other things. If you use the same maps or have just replicated shared code, you will get 0 for this assignment and a -50% advance deduction for the next assignment.  
 
-## 📚 Introduction
-In this session, we dive into the world of transformers by training a smaller version of the GPT model, known as "nanoGPT", from scratch. This exercise aims to deepen understanding of transformer architectures and their training process.
+## 📺 Video
 
-## 🏗 Model Architecture - nanoGPT
-- Number of layers: 6
-- Number of attention heads: 6
-- Embedding dimension: 384
-- Dropout rate: 0.2
+Youtube Link: https://www.youtube.com/watch?v=rBd4Obkx4OE
 
-## ⚡ Training Notebook
-Training Notebook: [link](./ERA1_Session21_nanoGPT.ipynb)
-
-## 📈 Results
-![](./images/training_log.png)
-
-## 🎧 HuggingFace App
-The trained model is uploaded to HuggingFace Apps, enabling easy sharing and access. Link to the model: (insert link here)
-
-## 🎨 Gradio Interface
-A user-friendly interface is created using Gradio, allowing users to interact with the trained model, generating text based on custom input.
-
-Link to Gradio Interface: (insert link here)
-
-## 📺 Reference Video
-[Training GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY&t=40s)
+## ⚡ Answer to questions  
+1. What happens when "boundary-signal" is weak when compared to the last reward?  
+    Answer: When the boundary-signal is weak relative to the last reward, the car tends to get stuck at the boundary. It struggles to return to the road or to reach its intended goal.
