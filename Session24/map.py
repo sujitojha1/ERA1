@@ -25,8 +25,8 @@ from ai import Dqn
 # Adding this line if we don't want the right click to put a red point
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 Config.set('graphics', 'resizable', False)
-Config.set('graphics', 'width', '1429')
-Config.set('graphics', 'height', '660')
+Config.set('graphics', 'width', '1360')
+Config.set('graphics', 'height', '800')
 
 # Introducing last_x and last_y, used to keep the last point in memory when we draw the sand on the map
 last_x = 0
@@ -54,8 +54,8 @@ def init():
     sand = np.zeros((longueur,largeur))
     img = PILImage.open("./images/mask.png").convert('L')
     sand = np.asarray(img)/255
-    goal_x = 1420
-    goal_y = 622
+    goal_x = 250
+    goal_y = 275
     first_update = False
     global swap
     swap = 0
@@ -110,6 +110,12 @@ class Ball2(Widget):
     pass
 class Ball3(Widget):
     pass
+class Goal1(Widget):
+    pass
+class Goal2(Widget):
+    pass
+class Goal3(Widget):
+    pass
 
 # Creating the game class
 
@@ -119,6 +125,9 @@ class Game(Widget):
     ball1 = ObjectProperty(None)
     ball2 = ObjectProperty(None)
     ball3 = ObjectProperty(None)
+    goal1 = ObjectProperty(None)
+    goal2 = ObjectProperty(None)
+    goal3 = ObjectProperty(None)
 
     def serve_car(self):
         self.car.center = self.center
@@ -154,18 +163,22 @@ class Game(Widget):
         self.ball1.pos = self.car.sensor1
         self.ball2.pos = self.car.sensor2
         self.ball3.pos = self.car.sensor3
+        self.goal1.pos = (250,275)
+        self.goal2.pos = (1200,92)
+        self.goal3.pos = (1200,760)
 
         if sand[int(self.car.x),int(self.car.y)] > 0:
             self.car.velocity = Vector(0.5, 0).rotate(self.car.angle)
             print(1, goal_x, goal_y, distance, int(self.car.x),int(self.car.y), im.read_pixel(int(self.car.x),int(self.car.y)))
-            
-            last_reward = -1
+            #print(1, sand[int(self.car.x),int(self.car.y)])
+            last_reward = -2
         else: # otherwise
             self.car.velocity = Vector(2, 0).rotate(self.car.angle)
             last_reward = -0.2
             print(0, goal_x, goal_y, distance, int(self.car.x),int(self.car.y), im.read_pixel(int(self.car.x),int(self.car.y)))
+            #print(0, sand[int(self.car.x),int(self.car.y)])
             if distance < last_distance:
-                last_reward = 0.1
+                last_reward = 0.2
             # else:
             #     last_reward = last_reward +(-0.2)
 
@@ -184,12 +197,13 @@ class Game(Widget):
 
         if distance < 25:
             if swap == 1:
-                goal_x = 1420
-                goal_y = 622
+                goal_x, goal_y = self.goal3.pos
+                swap = 2
+            elif swap == 2:
+                goal_x, goal_y = self.goal1.pos
                 swap = 0
             else:
-                goal_x = 9
-                goal_y = 85
+                goal_x, goal_y = self.goal2.pos
                 swap = 1
         last_distance = distance
 

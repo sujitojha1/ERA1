@@ -41,15 +41,44 @@
             pos: self.pos
             size: self.size
 
+<Goal1>:
+    size: 15,15
+    canvas:
+        Color:
+            rgba: 1.0, 0.0, 0.0, 1.0
+        Ellipse:
+            pos: self.pos
+            size: self.size
+<Goal2>:
+    size: 15,15
+    canvas:
+        Color:
+            rgba: 0.0, 1.0, 0.0, 1.0
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Goal3>:
+    size: 15,15
+    canvas:
+        Color:
+            rgba: 0.0, 0.0, 1.0, 1.0
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
 <Game>:
     car: game_car
     ball1: game_ball1
     ball2: game_ball2
     ball3: game_ball3
+    goal1: game_goal1
+    goal2: game_goal2
+    goal3: game_goal3
     canvas:
         Rectangle:
             pos: self.pos
-            size: 1429, 660
+            size: 1360, 800
             source: "./images/citymap.png"
 
     Car:
@@ -63,4 +92,13 @@
         center: self.parent.center
     Ball3:
         id: game_ball3
+        center: self.parent.center
+    Goal1:
+        id: game_goal1
+        center: self.parent.center
+    Goal2:
+        id: game_goal2
+        center: self.parent.center
+    Goal3:
+        id: game_goal3
         center: self.parent.center
