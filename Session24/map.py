@@ -35,7 +35,7 @@ n_points = 0
 length = 0
 
 # Getting our AI, which we call "brain", and that contains our neural network that represents our Q-function
-brain = Dqn(5,3,0.9)
+brain = Dqn(5,3,0.95)
 action2rotation = [0,5,-5]
 last_reward = 0
 scores = []
@@ -171,29 +171,28 @@ class Game(Widget):
             self.car.velocity = Vector(0.5, 0).rotate(self.car.angle)
             print(1, goal_x, goal_y, distance, int(self.car.x),int(self.car.y), im.read_pixel(int(self.car.x),int(self.car.y)))
             #print(1, sand[int(self.car.x),int(self.car.y)])
-            last_reward = -2
+            last_reward = -0.8
         else: # otherwise
-            self.car.velocity = Vector(2, 0).rotate(self.car.angle)
-            last_reward = -0.2
+            self.car.velocity = Vector(1.0, 0).rotate(self.car.angle)
+            last_reward =  -0.1
             print(0, goal_x, goal_y, distance, int(self.car.x),int(self.car.y), im.read_pixel(int(self.car.x),int(self.car.y)))
             #print(0, sand[int(self.car.x),int(self.car.y)])
             if distance < last_distance:
-                last_reward = 0.2
-            # else:
-            #     last_reward = last_reward +(-0.2)
+                last_reward = 0.8
+
 
         if self.car.x < 5:
             self.car.x = 5
-            last_reward = -1
+            last_reward = -0.5
         if self.car.x > self.width - 5:
             self.car.x = self.width - 5
-            last_reward = -1
+            last_reward = -0.5
         if self.car.y < 5:
             self.car.y = 5
-            last_reward = -1
+            last_reward = -0.5
         if self.car.y > self.height - 5:
             self.car.y = self.height - 5
-            last_reward = -1
+            last_reward = -0.5
 
         if distance < 25:
             if swap == 1:
